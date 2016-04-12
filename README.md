@@ -1,7 +1,7 @@
 # handset-detect
 An amazing user-agent parsing library supporting a wide range of devices, based on [api.handsetdetection.com]
 
-If there features you'd like to add to this library, please make a pull request and lets get them added! For now, here's how to use the lib:
+If there are features you'd like added to this library, please code them and make a pull request! Here's how to use the lib:
 
 # Cloud
 Cloud lookups are easy. Do this:
