@@ -22,7 +22,7 @@ The declaration of the library (```javascript require('handset-detect').init({ h
 
 A 10,000 item LRU cache is used to cache userAgents to their lookup results. This way, a lookup that takes 20 ms will instead take 0.02 ms to return full search results.
 
-##Single core Node.js process
+##Single-core Node.js process
 ```javascript
 const EventEmitter = new ( require('events') )();
 
@@ -42,8 +42,9 @@ let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWe
 setTimeout(()=> console.log( lookup( userAgent ), 5e3 );
 ```
 
+## Multi-core Node.js processes
 
-##For your master process:
+###For your master process:
 ```javascript
 const Cluster = require('cluster');
 
@@ -64,7 +65,7 @@ function informWorkersOfDBUpdate() {
     }
 }
 ```
-##For your worker processes:
+###For your worker processes:
 ```javascript
 const HandSetDetect = require('handset-detect');
 const lookup = HandSetDetect.init({ hosted: true });
