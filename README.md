@@ -18,7 +18,7 @@ HandSetDetect( userAgent, function( error, success ) {
 # Self-Hosted Database
 The self-hosted library needs to load tens of thousands of JSON files into memory. To do this efficiently, we load everything async where possible.
 
-The declaration of the library (```javascript require('handset-detect').init({ hosted: true });```) takes a few milliseconds to load, since its async loading. Meanwhile building and adding the data-structure into memory take a few seconds, since we open, parse, and process >28,000 JSON files into a memory-efficient data-structure. The takeaway, is that the library will be non-blocking on load, but will not be ready for maybe 2 seconds. At that point, all lookups will successfully return data.
+The declaration of the library (```require('handset-detect').init({ hosted: true });```) takes a few milliseconds to load, since its async loading. Meanwhile building and adding the data-structure into memory take a few seconds, since we open, parse, and process >28,000 JSON files into a memory-efficient data-structure. The takeaway, is that the library will be non-blocking on load, but will not be ready for maybe 2 seconds. At that point, all lookups will successfully return data.
 
 A 10,000 item LRU cache is used to cache userAgents to their lookup results. This way, a lookup that takes 20 ms will instead take 0.02 ms to return full search results.
 
