@@ -48,17 +48,17 @@ setTimeout(()=> console.log( lookup( userAgent ), 5e3 );
 ```javascript
 const Cluster = require('cluster');
 
-if ( Cluster.isMaster ) {
-    var EventEmitter = new ( require('events') )();
+var EventEmitter = new ( require('events') )();
 
-    require('handset-detect').init({
-        enableAutoUpdates: true,
-        eventEmitter: EventEmitter,
-        username: 'username',
-        secret: 'yourSecret'
-    });
-    EventEmitter.on( 'HandSetDetection database updated', informWorkersOfDBUpdate );
-}
+require('handset-detect').init({
+    enableAutoUpdates: true,
+    eventEmitter: EventEmitter,
+    username: 'username',
+    secret: 'yourSecret'
+});
+
+EventEmitter.on( 'HandSetDetection database updated', informWorkersOfDBUpdate );
+
 function informWorkersOfDBUpdate() {
     for ( let id in Cluster.workers ) {
         Cluster.workers[ id ].send('HandSetDetection database updated');
