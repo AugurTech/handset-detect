@@ -1,6 +1,6 @@
 {
   "name": "handset-detect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An amazing user-agent parsing library supporting a wide range of devices",
   "main": "index.js",
   "scripts": {
