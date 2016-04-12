@@ -39,8 +39,8 @@ module.exports = {
             if ( config.cloud === true ) {
                 setHTTPAuthHeader();
                 return request;
-            } else if ( config.hosted === true && config.dir !== undefined ) {
-                CONFIG.dir = __dirname + config.dir + '/';
+            } else if ( config.hosted === true ) {
+                CONFIG.dir = DATABASE_PATH_FOLDER + '/';
                 loadJSONfilesIntoMemory();
                 return matchDevice;
             } else if ( config.enableAutoUpdates === true && config.eventEmitter !== undefined ) {
@@ -199,7 +199,6 @@ function traverseTree( userAgent ) {
                         switch ( rootNode ) {
                             case '0':
                                 i--;
-                                /* passes through */
                             case '1':
                                 parsedUserAgent = DEVICE_ARRAY[ +path[ leaf ] ];
                                 break;
@@ -263,32 +262,3 @@ function reportError( error ) {
 ////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-
-// var CloudRequest = module.exports({ cloud: true, username: 'ebc9135b8d', secret: 'fNY9Hx9ak932Bm37' });
-// var DataBaseRequest = module.exports({ hosted: true, dir: './ultimate4' });
-
-// // let headers = {
-// //     'user-agent': ''
-// // };
-// var userAgent ='Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
-// var userAgent ='Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.23 Mobile Safari/537.36';
-// userAgent = 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1';
-// // userAgent = 'iTunes-AppleTV/4.1';
-// CloudRequest( userAgent, function( error, data ) {
-    // console.log( error, data );
-// });
-// // setInterval(function(){
-//     console.time('lookup');
-//     // let data = DataBaseRequest( userAgent );
-//     DataBaseRequest( userAgent );
-//     console.timeEnd('lookup');
-//     console.time('lookup');
-//     // let data = DataBaseRequest( userAgent );
-//     DataBaseRequest( userAgent );
-//     console.timeEnd('lookup');
-//     console.time('lookup');
-//     let data = DataBaseRequest( userAgent );
-//     // DataBaseRequest( userAgent );
-//     console.timeEnd('lookup');
-//     console.log( data );
-// // }, 100000 );
