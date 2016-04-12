@@ -1,5 +1,5 @@
 {
-  "name": "augur-handset-detect",
+  "name": "handset-detect",
   "version": "1.0.0",
   "description": "An amazing user-agent parsing library supporting a wide range of devices",
   "main": "index.js",
