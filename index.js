@@ -39,10 +39,6 @@ module.exports = {
             if ( config.cloud === true ) {
                 setHTTPAuthHeader();
                 return request;
-            } else if ( config.hosted === true ) {
-                CONFIG.dir = DATABASE_PATH_FOLDER + '/';
-                loadJSONfilesIntoMemory();
-                return matchDevice;
             } else if ( config.enableAutoUpdates === true && config.eventEmitter !== undefined ) {
                 EventEmitter = config.eventEmitter;
                 return FileSystem.readdir( DATABASE_PATH_FOLDER, function( error ) {
@@ -55,6 +51,10 @@ module.exports = {
                     setInterval( updateDatabase, 2.592e8 );
                 });
             }
+        } else if ( config.hosted === true ) {
+            CONFIG.dir = DATABASE_PATH_FOLDER + '/';
+            loadJSONfilesIntoMemory();
+            return matchDevice;
         }
         console.error('ERROR from HandSetDetection client. Required params not met');
     },
@@ -104,6 +104,12 @@ function loadJSONfilesIntoMemory() {
     let updated_extras_array = [];
 
     FileSystem.readdir( CONFIG.dir, function( error, directory ) {
+        if ( directory === undefined ) {
+            TREE = {};
+            DEVICE_ARRAY = [];
+            EXTRAS_ARRAY = [];
+            return;
+        }
         const isJSONFile = / /.test.bind(/\.json/);
         const openAndReturnJSONFile = ( file )=> JSON.parse( FileSystem.readFileSync( CONFIG.dir + file, 'ascii' ) );
         const openJSONFileAsync = function( file ) {
@@ -231,7 +237,7 @@ function saveToCache( userAgent, parsedUserAgent ) {
     }
 }
 function updateDatabase() {
-    reportLog('Updating database');
+    reportLog('Updating HandSetDetection database');
     setHTTPAuthHeader( true );
     Request( REQUEST_HEADERS, saveZipToFile ).once('error', reportError ).end();
     setHTTPAuthHeader();
