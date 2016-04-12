@@ -48,7 +48,7 @@ setTimeout(()=> console.log( lookup( userAgent ), 5e3 );
 ```javascript
 const Cluster = require('cluster');
 
-var EventEmitter = new ( require('events') )();
+const EventEmitter = new ( require('events') )();
 
 require('handset-detect').init({
     enableAutoUpdates: true,
