@@ -6,13 +6,13 @@ If there features you'd like to add to this library, please make a pull request 
 # Cloud
 Cloud lookups are easy. Do this:
 ```javascript
-    const HandSetDetectLookup = require('handset-detect').init({ cloud: true, username: 'userName', secret: 'yourSecret' });
+const HandSetDetectLookup = require('handset-detect').init({ cloud: true, username: 'userName', secret: 'yourSecret' });
 
-    let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
+let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
 
-    HandSetDetect( userAgent, function( error, success ) {
-        console.log( error, success );
-    });
+HandSetDetect( userAgent, function( error, success ) {
+    console.log( error, success );
+});
 ```
 
 # Self-Hosted Database
