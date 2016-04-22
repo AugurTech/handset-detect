@@ -41,7 +41,7 @@ module.exports = {
                 return request;
             } else if ( config.enableAutoUpdates === true && config.eventEmitter !== undefined ) {
                 EventEmitter = config.eventEmitter;
-                return FileSystem.readdir( DATABASE_PATH_FOLDER, function( error, files ) {
+                return FileSystem.readdir( DATABASE_PATH_FOLDER, function( error ) {
                     // If the database is not downloaded, then download it
                     if ( error !== null && error.errno === -2 ) {
                         reportLog('HandSetDetection database not found. Downloading...');
@@ -76,7 +76,7 @@ function onChunk( chunk ) {
     this.data += chunk;
 }
 function onDataEnd() {
-    this.callback( undefined, JSON.parse( this.data ) );
+    this.callback( null, JSON.parse( this.data ) );
 }
 function setHTTPAuthHeader( updateDatabase ) {
     const md5 = ( string )=> require('crypto').createHash('md5').update( string ).digest('hex');
