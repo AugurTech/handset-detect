@@ -43,6 +43,7 @@ module.exports = {
                 EventEmitter = config.eventEmitter;
                 return FileSystem.readdir( DATABASE_PATH_FOLDER, function( error ) {
                     // If the database is not downloaded, then download it
+                    console.log( error );
                     if ( error !== null && error.errno === -2 ) {
                         reportLog('HandSetDetection database not found. Downloading...');
                         updateDatabase();
