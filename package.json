@@ -9,6 +9,7 @@
   "author": "Nawar Alsafar",
   "license": "ISC",
   "dependencies": {
+    "lru-cache":"*",
     "unzip2": "^0.2.5"
   }
 }

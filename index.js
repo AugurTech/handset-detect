@@ -147,7 +147,7 @@ function loadJSONfilesIntoMemory() {
                     EXTRAS_ARRAY = updated_extras_array.slice();
                     SAVE_TO_CACHE_ENABLED = true;
                     LRU_CACHE.reset();
-                    reportLog('Database refreshed');
+                    reportLog('Database loaded');
                 }
             });
         };
