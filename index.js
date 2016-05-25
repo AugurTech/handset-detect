@@ -98,10 +98,10 @@ function setHTTPAuthHeader( updateDatabase ) {
 ////////// Cloud client - end ////////////////////////////////
 ///////// Hosted client - start ////////////////////////////
 function loadJSONfilesIntoMemory() {
-    let files_left_to_load = REVERSE_TREE_TRAVERAL_ORDER.length;
-    let updated_tree = {};
-    let updated_device_array = [];
-    let updated_extras_array = [];
+    let filesToLoad = REVERSE_TREE_TRAVERAL_ORDER.length;
+    let updatedTree = {};
+    let updatedDeviceArray = [];
+    let updatedExtrasArray = [];
 
     FileSystem.readdir( CONFIG.dir, function( error, directory ) {
         if ( directory === undefined ) {
@@ -139,12 +139,12 @@ function loadJSONfilesIntoMemory() {
                     }
                 }
 
-                updated_tree[ file.replace( replaceWithNothing, '' ) ] = tree;
+                updatedTree[ file.replace( replaceWithNothing, '' ) ] = tree;
 
-                if ( --files_left_to_load === 0 ) {
-                    TREE = Object.assign( {}, updated_tree );
-                    DEVICE_ARRAY = updated_device_array.slice();
-                    EXTRAS_ARRAY = updated_extras_array.slice();
+                if ( --filesToLoad === 0 ) {
+                    TREE = Object.assign( {}, updatedTree );
+                    DEVICE_ARRAY = updatedDeviceArray.slice();
+                    EXTRAS_ARRAY = updatedExtrasArray.slice();
                     SAVE_TO_CACHE_ENABLED = true;
                     LRU_CACHE.reset();
                     reportLog('Database loaded');
@@ -161,7 +161,7 @@ function loadJSONfilesIntoMemory() {
             splitFileName = file.split('_');
 
             if ( splitFileName[1] !== undefined ) {
-                ( splitFileName[0] === 'Device'? updated_device_array : updated_extras_array )[ +splitFileName[1].replace( replaceWithNothing, '' ) ] = openAndReturnJSONFile( file )[ splitFileName[0] ].hd_specs;
+                ( splitFileName[0] === 'Device'? updatedDeviceArray : updatedExtrasArray )[ +splitFileName[1].replace( replaceWithNothing, '' ) ] = openAndReturnJSONFile( file )[ splitFileName[0] ].hd_specs;
             } else if ( isJSONFile( file ) === true ) {
                 switch ( file ) {
                     case 'user-agent0.json':
