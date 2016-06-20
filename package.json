@@ -8,6 +8,7 @@
     },
     "author": "Nawar Alsafar",
     "license": "ISC",
+    "keywords": ["user-agent parser","useragent parser"],
     "dependencies": {
         "lru-cache":"*",
         "unzip2": "^0.2.5"
