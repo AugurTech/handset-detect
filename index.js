@@ -111,27 +111,23 @@ function loadJSONfilesIntoMemory() {
             return;
         }
         const isJSONFile = / /.test.bind(/\.json/);
-        const openAndReturnJSONFile = ( file )=> JSON.parse( FileSystem.readFileSync( CONFIG.dir + file, 'ascii' ) );
+        const openAndReturnJSONFile = ( file )=> JSON.parse( FileSystem.readFileSync( CONFIG.dir + file, 'utf8' ) );
         const openJSONFileAsync = function( file ) {
-            FileSystem.readFile( CONFIG.dir + file, 'ascii', function( error, jsonString ) {
+            FileSystem.readFile( CONFIG.dir + file, 'utf8', function( error, jsonString ) {
                 const json = JSON.parse( jsonString );
-                let database;
                 let tree = {};
-                let rootNode;
-                let branch;
-                let leaf;
 
                 for ( let filter in json ) {
-                    database = json[ filter ];
+                    let database = json[ filter ];
 
-                    for ( rootNode in database ) {
+                    for ( let rootNode in database ) {
                         if ( tree[ rootNode ] === undefined ) {
                             tree[ rootNode ] = {};
                         }
 
-                        branch = database[ rootNode ];
+                        let branch = database[ rootNode ];
 
-                        for ( leaf in branch ) {
+                        for ( let leaf in branch ) {
                             if ( tree[ rootNode ][ leaf ] === undefined ) {
                                 tree[ rootNode ][ leaf ] = branch[ leaf ];
                             }
@@ -153,12 +149,10 @@ function loadJSONfilesIntoMemory() {
         };
         const replaceWithNothing = /user-agent|\.json/g;
         let i = directory.length;
-        let file;
-        let splitFileName;
 
         while ( i-- !== 0 ) {
-            file = directory[i];
-            splitFileName = file.split('_');
+            let file = directory[i];
+            let splitFileName = file.split('_');
 
             if ( splitFileName[1] !== undefined ) {
                 ( splitFileName[0] === 'Device'? updatedDeviceArray : updatedExtrasArray )[ +splitFileName[1].replace( replaceWithNothing, '' ) ] = openAndReturnJSONFile( file )[ splitFileName[0] ].hd_specs;
@@ -180,37 +174,32 @@ function matchDevice( userAgent ) {
 function traverseTree( userAgent ) {
     const lowerCaseUserAgent = userAgent.toLowerCase();
     let normalizedUserAgent = lowerCaseUserAgent.replace( DEVICE_UA_FILTER , '' );
-    let indexFound;
-    let leaf;
-    let node;
-    let branch;
     let rootNode;
-    let path;
     let i = REVERSE_TREE_TRAVERAL_ORDER.length;
     let parsedUserAgent = {};
-    let extraInfoOnUserAgent;
 
     while ( i-- !== 0 ) {
-        branch = TREE[ rootNode = REVERSE_TREE_TRAVERAL_ORDER[i] ];
-        indexFound = false;
+        let branch = TREE[ rootNode = REVERSE_TREE_TRAVERAL_ORDER[i] ];
+        let indexFound = false;
 
         if ( rootNode === 'browser' ) {
             normalizedUserAgent = lowerCaseUserAgent.replace( EXTRAS_FILTER, '' );
         }
-        for ( node in branch ) {
+        for ( let node in branch ) {
             if ( normalizedUserAgent.indexOf( node ) !== -1 ) {
-                path = branch[ node ];
-                for ( leaf in path ) {
+                let path = branch[ node ];
+                for ( let leaf in path ) {
                     if ( normalizedUserAgent.indexOf( leaf ) !== -1 ) {
-                        switch ( rootNode ) {
+                        switch( rootNode ) {
                             case '0':
                                 i--;
+                            /* falls through */
                             case '1':
                                 parsedUserAgent = DEVICE_ARRAY[ +path[ leaf ] ];
                                 break;
                             case 'browser':
                             case 'platform':
-                                extraInfoOnUserAgent = EXTRAS_ARRAY[ +path[ leaf ] ];
+                                let extraInfoOnUserAgent = EXTRAS_ARRAY[ +path[ leaf ] ];
                                 for ( node in extraInfoOnUserAgent ) {
                                     if ( extraInfoOnUserAgent[ node ] !== '' ) {
                                         parsedUserAgent[ node ] = extraInfoOnUserAgent[ node ];
