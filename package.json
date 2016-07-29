@@ -10,7 +10,9 @@
     "license": "ISC",
     "keywords": ["user-agent parser","useragent parser"],
     "dependencies": {
+        "hiredis": "*",
         "lru-cache":"*",
+        "redis": "*",
         "unzip2": "^0.2.5"
     },
     "repository" : {

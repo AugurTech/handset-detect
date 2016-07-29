@@ -12,9 +12,9 @@ const REQUEST_HEADERS = {
 const CONFIG = {};
 const FileSystem = require('fs');
 const Unzip = require('unzip2').Extract;
-const DATABASE_PATH_FOLDER = __dirname +'/ultimate4';
+const DATABASE_PATH_FOLDER = __dirname + '/ultimate4';
 const DATABASE_PATH_ZIP = DATABASE_PATH_FOLDER + '.zip';
-const REVERSE_TREE_TRAVERAL_ORDER = ['platform','browser','1','0'];
+const REVERSE_TREE_TRAVERAL_ORDER = [ 'platform', 'browser', '1', '0' ];
 let LRU_CACHE = require('lru-cache')( 10e3 );
 let LRU_GET = LRU_CACHE.get.bind( LRU_CACHE );
 let LRU_SET = LRU_CACHE.set.bind( LRU_CACHE );
@@ -25,6 +25,8 @@ let EXTRAS_ARRAY = [];
 let TREE = {};
 let SAVE_TO_CACHE_ENABLED;
 let EventEmitter;
+
+const Redis = require('redis').createClient().on( 'error', reportError );
 ///////////////////////////////////////////////////////////
 ////////// Main Module ///////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -83,16 +85,18 @@ function setHTTPAuthHeader( updateDatabase ) {
     const HA1 = md5( CONFIG.username + ':APIv4:' + CONFIG.secret );
     const HA2 = md5( updateDatabase === true? 'GET:/apiv4/device/fetcharchive.json' : 'POST:/apiv4/device/detect.json' );
     const cnonce = md5( Math.random().toString() );
-    const response = md5( HA1 + ':APIv4:00000001:'+cnonce+':auth:' + HA2 );
+    const response = md5( HA1 + ':APIv4:00000001:' + cnonce + ':auth:' + HA2 );
 
-    REQUEST_HEADERS.headers.authorization = 'Digest username="'+CONFIG.username+'", realm="APIv4", nonce="APIv4", uri="'+ (updateDatabase === true? '/apiv4/device/fetcharchive.json' : '/apiv4/device/detect.json' ) +'", cnonce="'+cnonce+'", nc=00000001, qop=auth, response="'+response+'", opaque="APIv4"';
+    REQUEST_HEADERS.headers.authorization = 'Digest username="' + CONFIG.username +
+        '", realm="APIv4", nonce="APIv4", uri="'+ ( updateDatabase === true? '/apiv4/device/fetcharchive.json' : '/apiv4/device/detect.json' ) +
+        '", cnonce="' + cnonce + '", nc=00000001, qop=auth, response="' + response + '", opaque="APIv4"';
 
     if ( updateDatabase === true ) {
         REQUEST_HEADERS.method = 'GET';
         REQUEST_HEADERS.path = '/apiv4/device/fetcharchive.json';
     } else {
-        REQUEST_HEADERS.path = '/apiv4/device/detect.json';
         REQUEST_HEADERS.method = 'POST';
+        REQUEST_HEADERS.path = '/apiv4/device/detect.json';
     }
 }
 ////////// Cloud client - end ////////////////////////////////
@@ -130,6 +134,7 @@ function loadJSONfilesIntoMemory() {
                         for ( let leaf in branch ) {
                             if ( tree[ rootNode ][ leaf ] === undefined ) {
                                 tree[ rootNode ][ leaf ] = branch[ leaf ];
+                                console.log( tree[rootNode][leaf] );
                             }
                         }
                     }
