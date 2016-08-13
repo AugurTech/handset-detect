@@ -8,19 +8,7 @@ Hit me up @NawarA on GitHub.
 
 Here's how to use the lib:
 
-##The data this free library returns on userAgents:
-Remember, this works on
-* bots
-* cameras
-* computers
-* gaming consoles
-* wearables
-* mobile devices
-* netbooks
-* set-top-boxes
-* smart TVs
-* tablets
-* and more
+##Example data this free library returns when parsing userAgents:
 ```javascript
 let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
 
@@ -114,9 +102,20 @@ parse( userAgent );
      general_virtual: 0,
      display_css_screen_sizes: [ '320x480' ]
 }
+    this userAgent parser returns this kind of data on:
+    * bots
+    * cameras
+    * computers
+    * gaming consoles
+    * wearables
+    * mobile devices / smartphones
+    * netbooks
+    * set-top-boxes
+    * smart TVs
+    * tablets
+    * and more
 */
 ```
-
 
 ## Using the DB: in-memory option
 The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `useMinData: true`. Using `useMinData` decreases the size of DB, and makes the DB return less userAgent insights. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
