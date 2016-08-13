@@ -27,11 +27,17 @@ console.log( parse( userAgent ) );
 ```
 #### NOTE: The first you load this library on your machine
 The free-edition comes in a zip and will need to extract itself once. During this process, you'll see the following prompts:
+
 `User-Agent-Parser: No database found. Loading...`
+
 Once the zip is extracted, you'll see:
+
 `User-Agent-Parser: Database extracted`
+
 At this point, the database will process and save a cached version of itself in Redis, so you don't have to repeat this process ever again. Once its done, you'll see:
+
 `User-Agent-Parser: Finished loading. Restart your app or workers so that they use the new database`
+
 At this point, restart your app or server to have the most advanced UA parser...for free. Cheers
 
 
@@ -53,8 +59,11 @@ console.log( parse( userAgent ) );
 ```
 #### NOTE: autoUpdate automatically downloads the latest version of the premium database, every 3 days.
 When it updates the database, you'll see the following prompts:
+
 `User-Agent-Parser: Updating database`
+
 `User-Agent-Parser: Database extracted`
+
 `User-Agent-Parser: Finished loading. Restart your app or workers so that they use the new database`
 
 ###If you use node's cluster modules (aka you use multiple event loops)
