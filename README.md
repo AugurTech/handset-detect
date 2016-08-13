@@ -118,7 +118,7 @@ parse( userAgent );
 ```
 
 ## Using the DB: in-memory option
-The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `useMinData: true`. Using `useMinData` decreases the size of DB, and makes the DB return less userAgent insights. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
+The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `useMinData: true`. Using `useMinData` decreases the size of the DB and makes the DB return less data. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
 
 Performance: the first time you query a userAgent, it'll take a few milliseconds to return results. After that, an LRU cache kicks in -- so the same UA being looked up takes less than 1 millisecond to give you full results. Good code runs in less than a millisecond -- I hope you appreciate the blazing fast performance. Rock on
 
@@ -134,8 +134,8 @@ const parse = require('handset-detect')({
 
 console.log( parse( userAgent ) );
 ```
-#### NOTE: The first you load this library on your machine
-The free-edition comes in a zip and will need to extract itself once. During this process, you'll see the following prompts:
+#### NOTE: The first time you load this library on your machine
+The free-edition comes in a zip and will need to extract itself. During this process, you'll see the following prompts:
 
 `User-Agent-Parser: No database found. Loading...`
 
@@ -149,10 +149,12 @@ At this point, the database will process and save a cached version of itself in 
 
 At this point, restart your app or server to have the most advanced UA parser...for free. Cheers
 
+#####FREE DB UPDATES available @ handsetdetect.com
+
 
 ## To use the Ultimate (aka paid-for) version of the database
 
-### a normal, single-event-loop node.js app
+### if you use a normal, single-event-loop node.js app
 ```javascript
 let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
 
