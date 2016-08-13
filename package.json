@@ -1,14 +1,18 @@
 {
     "name": "handset-detect",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "The best userAgent parser on npm",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Nawar Alsafar",
+    "contributors": [{
+        "name": "Nawar Alsafar",
+        "email": "NawarA@users.noreply.github.com"
+    }],
     "license": "ISC",
-    "keywords": ["user-agent parser","useragent parser"],
+    "keywords": ["user-agent", "userAgent", "user-agent parser","useragent parser", "parser"],
     "dependencies": {
         "hiredis": "*",
         "lru-cache":"*",

@@ -149,9 +149,10 @@ At this point, the database will process and save a cached version of itself in 
 
 At this point, restart your app or server to have the most advanced UA parser...for free. Cheers
 
-#####FREE DB UPDATES.
+#####FREE DB UPDATES
 In case you want free database updates, then you can get them by signing up for a free API key. https://app.handsetdetection.com/signup
-A free version of the database is already included in this repo / npm module.
+
+A free database is already included in this repo / npm module.
 
 
 ## To use the Ultimate (aka paid-for) version of the database
