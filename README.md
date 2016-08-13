@@ -8,8 +8,118 @@ Hit me up @NawarA on GitHub.
 
 Here's how to use the lib:
 
-# Loading the DB in-memory
-The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `useMinData: true`. Using `useMinData` decreases the size of DB, and make the DB return less userAgent insights. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
+##The data this free library returns on userAgents:
+Remember, this works on
+* bots
+* cameras
+* computers
+* gaming consoles
+* wearables
+* mobile devices
+* netbooks
+* set-top-boxes
+* smart TVs
+* tablets
+* and more
+```javascript
+let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
+
+parse( userAgent );
+/*
+    returns the following:
+{
+     general_vendor: 'Apple',
+     general_model: 'iPhone',
+     general_platform: 'iOS',
+     general_platform_version: '9.1',
+     general_platform_version_max: '3.1.3',
+     general_browser: 'Mobile Safari',
+     general_browser_version: '',
+     general_image: 'appleiphone-1423539120-1.jpg',
+     general_aliases: [],
+     general_eusar: '0.97',
+     general_battery: [ 'Li-Ion 1400 mAh' ],
+     general_type: 'Mobile',
+     general_cpu: [ 'ARM11', '412MHz' ],
+     design_formfactor: 'Bar',
+     design_dimensions: '115 x 61 x 11.6',
+     design_weight: '135',
+     design_antenna: 'Internal',
+     design_keyboard: 'Screen',
+     design_softkeys: '',
+     design_sidekeys: [ 'Volume' ],
+     display_type: 'TFT',
+     display_color: 'Yes',
+     display_colors: '16M',
+     display_size: '3.5"',
+     display_x: '320',
+     display_y: '480',
+     display_ppi: 162,
+     display_pixel_ratio: '1.0',
+     display_other: [ 'Capacitive', 'Touch', 'Multitouch', 'Gorilla Glass' ],
+     memory_internal: [ '4GB', '8GB', '16GB RAM' ],
+     memory_slot: [],
+     network:
+      [ 'GSM850',
+        'GSM900',
+        'GSM1800',
+        'GSM1900',
+        'Bluetooth 2.0',
+        '802.11b',
+        '802.11g',
+        'GPRS',
+        'EDGE' ],
+     media_camera: [ '2MP', '1600x1200' ],
+     media_secondcamera: [],
+     media_videocapture: [],
+     media_videoplayback: [ 'MPEG4', 'H.264' ],
+     media_audio: [ 'MP3', 'AAC', 'WAV' ],
+     media_other: [],
+     features:
+      [ 'Unlimited entries',
+        'Multiple numbers per contact',
+        'Picture ID',
+        'Ring ID',
+        'Calendar',
+        'Alarm',
+        'Document viewer',
+        'Calculator',
+        'Timer',
+        'Stopwatch',
+        'Computer sync',
+        'OTA sync',
+        'Polyphonic ringtones',
+        'Vibration',
+        'Phone profiles',
+        'Flight mode',
+        'Silent mode',
+        'Speakerphone',
+        'Accelerometer',
+        'Voice recording',
+        'Light sensor',
+        'Proximity sensor',
+        'SMS',
+        'Threaded viewer',
+        'Email',
+        'Google Maps',
+        'Audio/video player',
+        'Games' ],
+     connectors: [ 'USB', '3.5mm Audio', 'TV Out' ],
+     benchmark_min: 10,
+     benchmark_max: 50,
+     general_app: '',
+     general_app_version: '',
+     general_app_category: '',
+     general_language: '',
+     general_virtual: 0,
+     display_css_screen_sizes: [ '320x480' ]
+}
+*/
+```
+
+
+## Using the DB: in-memory option
+The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `useMinData: true`. Using `useMinData` decreases the size of DB, and makes the DB return less userAgent insights. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
 
 Performance: the first time you query a userAgent, it'll take a few milliseconds to return results. After that, an LRU cache kicks in -- so the same UA being looked up takes less than 1 millisecond to give you full results. Good code runs in less than a millisecond -- I hope you appreciate the blazing fast performance. Rock on
 
@@ -93,7 +203,7 @@ const parse = require('handset-detect')({
 console.log( parse( userAgent ) );
 ```
 
-# API-based lookups are easy. Do this:
+## Using the DB: API-based lookups are easy. Do this:
 ```javascript
 let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
 
