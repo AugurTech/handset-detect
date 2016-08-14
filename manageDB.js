@@ -131,7 +131,7 @@ function openJSONFile( file, tree ) {
 function loadOptionsAndcheckIfDBExists() {
     let config = JSON.parse( process.argv[2] );
 
-    USE_MIN_DATA = config.USE_MIN_DATA;
+    USE_MIN_DATA = config.useMinData;
 
     if ( config.free === true ) {
         DATABASE_PATH_FOLDER = __dirname +'/free-edition';

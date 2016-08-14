@@ -186,6 +186,7 @@ When it updates the database, you'll see the following prompts:
 ```javascript
 require('handset-detect')({
     hosted: true,
+    //useMinData: true,
     autoUpdate: true,
     username: 'username',
     secret: 'yourSecret'
@@ -199,7 +200,6 @@ let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWe
 
 const parse = require('handset-detect')({
     hosted: true,
-    autoUpdate: true,
     username: 'username',
     secret: 'yourSecret'
 });
