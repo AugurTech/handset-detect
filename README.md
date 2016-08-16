@@ -1,5 +1,7 @@
 # The most advanced user-agent parser on the planet
 
+A light-weight, high-peformance (results in less than a millisecond) userAgent parser, built to detect the widest number of devices.
+
 See the full list of device's you can detect at http://www.handsetdetection.com/properties
 
 This npm module includes a free UA parser DB and also works with paid-for versions of the DB.
@@ -180,7 +182,7 @@ When it updates the database, you'll see the following prompts:
 
 `User-Agent-Parser: Finished loading. Restart your app or workers so that they use the new database`
 
-###If you use node's cluster modules (aka you use multiple event loops)
+###If you use node's cluster module (aka you use multiple event loops)
 
 ###On your master event-loop do this:
 ```javascript
