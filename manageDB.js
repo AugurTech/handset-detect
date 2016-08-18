@@ -12,7 +12,7 @@ let ONLY_LOAD = [];
 function updateDatabase() {
     Request( REQUEST_OPTIONS, saveZipToFile ).once('error', reportError ).end();
     require('child_process').exec( 'rm -r ' + DATABASE_PATH_FOLDER );
-    FileSystem.unlink( DATABASE_PATH_ZIP );
+    FileSystem.unlink( DATABASE_PATH_ZIP, function() {});
     reportLog('Updating database');
 }
 function saveZipToFile( readableStream ) {
