@@ -79,7 +79,7 @@ function lookUp( userAgent ) {
 module.exports = function( DATABASE_NAME ) {
 	let loadDatabase = function( databaseName ) {
 		try {
-			TREE = JSON.parse( require('fs').readFileSync( databaseName, 'utf8' ) );
+			TREE = JSON.parse( require('fs').readFileSync( __dirname + databaseName, 'utf8' ) );
 		} catch( error ) {
 			console.log( databaseName, error );
 			if ( databaseName === 'database.json' ) {
