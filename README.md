@@ -16,7 +16,7 @@ let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWe
 
 parse( userAgent );
 /*
-    returns the following:
+    returns the following fields:
 {
      general_vendor: 'Apple',
      general_model: 'iPhone',
@@ -120,7 +120,7 @@ parse( userAgent );
 ```
 
 ## Using the DB: in-memory option
-The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `useMinData: true`. Using `useMinData` decreases the size of the DB and makes the DB return less data. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
+The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `onlyLoad: [<fieldName>,<fieldName>]`. By selectively only loading data you care about, `onlyLoad` decreases the size of the DB, and makes the DB return less data. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
 
 Performance: the first time you query a userAgent, it'll take a few milliseconds to return results. After that, an LRU cache kicks in -- so the same UA being looked up takes less than 1 millisecond to give you full results. Good code runs in less than a millisecond -- I hope you appreciate the blazing fast performance. Rock on
 
@@ -136,20 +136,6 @@ const parse = require('handset-detect')({
 
 console.log( parse( userAgent ) );
 ```
-#### NOTE: The first time you load this library on your machine
-The free-edition comes in a zip and will need to extract itself. During this process, you'll see the following prompts:
-
-`User-Agent-Parser: No database found. Loading...`
-
-Once the zip is extracted, you'll see:
-
-`User-Agent-Parser: Database extracted`
-
-At this point, the database will process and save a cached version of itself in Redis, so you don't have to repeat this process ever again. Once its done, you'll see:
-
-`User-Agent-Parser: Finished loading. Restart your app or workers so that they use the new database`
-
-At this point, restart your app or server to have the most advanced UA parser...for free. Cheers
 
 #####FREE DB UPDATES
 In case you want free database updates, then you can get them by signing up for a free API key. https://app.handsetdetection.com/signup
@@ -165,7 +151,7 @@ let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWe
 
 const parse = require('handset-detect')({
     hosted: true,
-    //useMinData: true,
+    //onlyLoad: ['general_model','general_vendor','general_browser','general_platform'],
     autoUpdate: true,
     username: 'username',
     secret: 'yourSecret'
@@ -188,7 +174,7 @@ When it updates the database, you'll see the following prompts:
 ```javascript
 require('handset-detect')({
     hosted: true,
-    //useMinData: true,
+    //onlyLoad: ['general_model','general_vendor','general_browser','general_platform'],
     autoUpdate: true,
     username: 'username',
     secret: 'yourSecret'
@@ -213,7 +199,11 @@ console.log( parse( userAgent ) );
 ```javascript
 let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
 
-const parse = require('handset-detect')({ cloud: true, username: 'userName', secret: 'yourSecret' });
+const parse = require('handset-detect')({
+    cloud: true,
+    username: 'userName',
+    secret: 'yourSecret'
+});
 
 parse( userAgent, function( error, success ) {
     console.log( error, success );

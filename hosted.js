@@ -8,6 +8,7 @@ const LRU_SET = LRU_CACHE.set.bind( LRU_CACHE );
 let TREE = {};
 
 function traverseTree( userAgent ) {
+	console.log( 'traverseTree', userAgent );
 	const lowerCaseUserAgent = userAgent.toLowerCase();
 	let normalizedUserAgent = lowerCaseUserAgent.replace( DEVICE_UA_FILTER , '' );
 	let parsedUserAgent;
@@ -69,6 +70,9 @@ function traverseTree( userAgent ) {
 }
 
 function lookUp( userAgent ) {
+	if ( !LRU_GET(userAgent) ) {
+		console.log('cache-miss', userAgent);
+	}
 	return LRU_GET( userAgent ) || traverseTree( userAgent );
 }
 
