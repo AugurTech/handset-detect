@@ -2,9 +2,6 @@
 const TRAVERSAL_ORDER = ['0','1','browser','platform'];
 const EXTRAS_FILTER = new RegExp( ' |[^(\x20-\x7F)]*', 'g' );
 const DEVICE_UA_FILTER = new RegExp( /_| |#|-|,|\.|\/|:|"|'/.source + '|[^(\x20-\x7F)]*', 'g' );
-const LRU_CACHE = require('lru-cache')( 100e3 );
-const LRU_GET = LRU_CACHE.get.bind( LRU_CACHE );
-const LRU_SET = LRU_CACHE.set.bind( LRU_CACHE );
 const CACHE = {};
 let TREE = {};
 
@@ -65,25 +62,12 @@ function traverseTree( userAgent ) {
 	}
 	if ( parsedUserAgent !== undefined ) {
 		CACHE[ userAgent ] = parsedUserAgent;
-		// process.nextTick( LRU_SET, userAgent, parsedUserAgent );
-		// if ( userAgent === 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36') {
-			// console.log('traverseTree found', parsedUserAgent);
-		// }
 		return parsedUserAgent;
 	}
 }
 
 function lookUp( userAgent ) {
-	if ( userAgent === 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36') {
-		console.log( `${ CACHE[userAgent]? 'cache-hit': 'cache-miss' }`, CACHE[ userAgent ] || traverseTree( userAgent ) );
-	}
-	// if ( !CACHE[ userAgent ] ) {
-	// 	console.log('traverseTree', userAgent);
-	// } else {
-	// 	console.log( 'cache-hit', userAgent, JSON.stringify(CACHE[userAgent]) );
-	// }
 	return CACHE[ userAgent ] || traverseTree( userAgent );
-	// return LRU_GET( userAgent ) || traverseTree( userAgent );
 }
 
 module.exports = function( DATABASE_NAME ) {
@@ -91,7 +75,6 @@ module.exports = function( DATABASE_NAME ) {
 		try {
 			TREE = JSON.parse( require('fs').readFileSync( __dirname + databaseName, 'utf8' ) );
 		} catch( error ) {
-			// console.log( databaseName, error );
 			if ( databaseName === '/database.json' ) {
     			console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Loading database. Reinstall this npm module' );
 			} else {

@@ -6,13 +6,13 @@ See the full list of device's you can detect at http://www.handsetdetection.com/
 
 This npm module includes a free UA parser DB and also works with paid-for versions of the DB.
 
-Hit me up @NawarA on GitHub.
+Hit me up @NawarA on GitHub. If you experience issues or have feature suggestions, please report them in the GitHub repo.
 
 Here's how to use the lib:
 
 ##Example data this free library returns when parsing userAgents:
 ```javascript
-let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
+let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
 parse( userAgent );
 /*
@@ -120,14 +120,18 @@ parse( userAgent );
 ```
 
 ## Using the DB: in-memory option
-The database will be loaded in-memory. The in-memory DB can be over 100 MB. If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `onlyLoad: [<fieldName>,<fieldName>]`. By selectively only loading data you care about, `onlyLoad` decreases the size of the DB, and makes the DB return less data. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
+The database will be loaded in-memory. The in-memory DB can be over 20 MB (free version) to 100 MB (premium version). If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `onlyLoad: [<fieldName>,<fieldName>]`. Selectively loading data with the `onlyLoad` configuration decreases the memory footprint of DB, and makes the DB return less data. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
 
-Performance: the first time you query a userAgent, it'll take a few milliseconds to return results. After that, an LRU cache kicks in -- so the same UA being looked up takes less than 1 millisecond to give you full results. Good code runs in less than a millisecond -- I hope you appreciate the blazing fast performance. Rock on
+###Performance:
+The first time you query a userAgent, it'll take a few milliseconds to return results. After that, a cache kicks in -- so the same UA being looked up takes less than 1 millisecond to return full results. Good code runs in less than a millisecond -- I hope you appreciate the blazing fast performance. Rock on
+
+###Benchmark
+On my machine, 1,000,000 UA look-ups took 8.27 milliseconds
 
 ## To use the free-edition
 Just do this:
 ```javascript
-let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
+let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
 const parse = require('handset-detect')({
     hosted: true,
@@ -147,7 +151,7 @@ A free database is already included in this repo / npm module.
 
 ### if you use a normal, single-event-loop node.js app
 ```javascript
-let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
+let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
 const parse = require('handset-detect')({
     hosted: true,
@@ -184,7 +188,7 @@ The master event-loop will create a child event-loop which handles database down
 
 ###On your worker event-loops:
 ```javascript
-let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
+let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
 const parse = require('handset-detect')({
     hosted: true,
@@ -197,7 +201,7 @@ console.log( parse( userAgent ) );
 
 ## Using the DB: API-based lookups are easy. Do this:
 ```javascript
-let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A523 Safari/8536.25';
+let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
 const parse = require('handset-detect')({
     cloud: true,
