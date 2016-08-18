@@ -72,7 +72,7 @@ function lookUp( userAgent ) {
 	if ( !LRU_GET(userAgent) ) {
 		console.log('traverseTree', userAgent);
 	} else {
-		console.log( 'cache-hit', userAgent );
+		console.log( 'cache-hit', userAgent, LRU_GET(userAgent) );
 	}
 	return LRU_GET( userAgent ) || traverseTree( userAgent );
 }
