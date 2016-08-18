@@ -85,7 +85,7 @@ module.exports = function( DATABASE_NAME ) {
 			if ( databaseName === 'database.json' ) {
     			console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Loading database. Reinstall this npm module' );
 			} else {
-				loadDatabase('database.json');
+				loadDatabase('/database.json');
 			}
 		}
 	};
