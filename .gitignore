@@ -2,7 +2,7 @@
 *.sublime*
 *.log*
 node_modules
-ultimate4/*.json
+ultimate4/
 ultimate4.zip
 test.js
 free-edition/
