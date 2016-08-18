@@ -5,6 +5,7 @@ const DEVICE_UA_FILTER = new RegExp( /_| |#|-|,|\.|\/|:|"|'/.source + '|[^(\x20-
 const LRU_CACHE = require('lru-cache')( 100e3 );
 const LRU_GET = LRU_CACHE.get.bind( LRU_CACHE );
 const LRU_SET = LRU_CACHE.set.bind( LRU_CACHE );
+const CACHE = {};
 let TREE = {};
 
 function traverseTree( userAgent ) {
@@ -63,7 +64,8 @@ function traverseTree( userAgent ) {
 		}
 	}
 	if ( parsedUserAgent !== undefined ) {
-		process.nextTick( LRU_SET, userAgent, parsedUserAgent );
+		CACHE[ userAgent ] = parsedUserAgent;
+		// process.nextTick( LRU_SET, userAgent, parsedUserAgent );
 		return parsedUserAgent;
 	}
 }
@@ -74,7 +76,8 @@ function lookUp( userAgent ) {
 	} else {
 		console.log( 'cache-hit', userAgent, LRU_GET(userAgent) );
 	}
-	return LRU_GET( userAgent ) || traverseTree( userAgent );
+	return CACHE[ userAgent ] || traverseTree( userAgent );
+	// return LRU_GET( userAgent ) || traverseTree( userAgent );
 }
 
 module.exports = function( DATABASE_NAME ) {
