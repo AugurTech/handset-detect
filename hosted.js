@@ -66,15 +66,18 @@ function traverseTree( userAgent ) {
 	if ( parsedUserAgent !== undefined ) {
 		CACHE[ userAgent ] = parsedUserAgent;
 		// process.nextTick( LRU_SET, userAgent, parsedUserAgent );
+		if ( userAgent === 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36') {
+			console.log('traverseTree found', parsedUserAgent);
+		}
 		return parsedUserAgent;
 	}
 }
 
 function lookUp( userAgent ) {
-	if ( !LRU_GET(userAgent) ) {
+	if ( !CACHE[ userAgent ] ) {
 		console.log('traverseTree', userAgent);
 	} else {
-		console.log( 'cache-hit', userAgent, LRU_GET(userAgent) );
+		console.log( 'cache-hit', userAgent, JSON.stringify(CACHE[userAgent]) );
 	}
 	return CACHE[ userAgent ] || traverseTree( userAgent );
 	// return LRU_GET( userAgent ) || traverseTree( userAgent );
