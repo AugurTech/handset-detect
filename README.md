@@ -122,11 +122,11 @@ parse( userAgent );
 ## Using the DB: in-memory option
 The database will be loaded in-memory. The in-memory DB can be over 20 MB (free version) to 100 MB (premium version). If that's too big, then you can shrink the in-memory DB down to 10 MB, by using the config option `onlyLoad: [<fieldName>,<fieldName>]`. Selectively loading data with the `onlyLoad` configuration decreases the memory footprint of DB, and makes the DB return less data. To summarize, get every insight on the userAgent with the default setup, or get less insights. Your choice. Either way, query performance is the same.
 
-###Performance:
+###Performance
 The first time you query a userAgent, it'll take a few milliseconds to return results. After that, a cache kicks in -- so the same UA being looked up takes less than 1 millisecond to return full results. Good code runs in less than a millisecond -- I hope you appreciate the blazing fast performance. Rock on
 
 ###Benchmark
-On my machine, 1,000,000 UA look-ups took 8.27 milliseconds
+On my machine, 1,000,000 UA look-ups took 8.27 milliseconds. Theoretically, that's about 120 Million look-ups per a second, or about 120 thousands look-ups per millisecond. I'm sure results will vary based on your machine and the config options you choose, but I'm sure it'll be very fast for you as well.
 
 ## To use the free-edition
 Just do this:
