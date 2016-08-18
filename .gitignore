@@ -3,5 +3,7 @@
 *.log*
 node_modules
 ultimate4/*.json
-License.txt
 ultimate4.zip
+test.js
+free-edition/
+database-premium.json

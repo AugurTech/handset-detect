@@ -7,10 +7,6 @@ const LRU_GET = LRU_CACHE.get.bind( LRU_CACHE );
 const LRU_SET = LRU_CACHE.set.bind( LRU_CACHE );
 let TREE = {};
 
-module.exports = function( userAgent ) {
-	return LRU_GET( userAgent ) || traverseTree( userAgent );
-};
-
 function traverseTree( userAgent ) {
 	const lowerCaseUserAgent = userAgent.toLowerCase();
 	let normalizedUserAgent = lowerCaseUserAgent.replace( DEVICE_UA_FILTER , '' );
@@ -71,19 +67,23 @@ function traverseTree( userAgent ) {
 		return parsedUserAgent;
 	}
 }
-(function(){
-	let Redis = require('redis').createClient();
-	Redis.get('hsd:tree', function( error, tree ) {
-		if ( error === null ) {
-			if ( tree === null ) {
-				console.log( new Date().toISOString(), 'User-Agent-Parser: No database found. Loading...');
+
+function lookUp( userAgent ) {
+	return LRU_GET( userAgent ) || traverseTree( userAgent );
+}
+
+module.exports = function( DATABASE_NAME ) {
+	let loadDatabase = function( databaseName ) {
+		try {
+			TREE = JSON.parse( require('fs').readFileSync( databaseName, 'utf8' ) );
+		} catch( error ) {
+			if ( databaseName === 'database.json' ) {
+    			console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Loading database. Reinstall this npm module' );
 			} else {
-				// console.log( 'db size', tree.length );
-				TREE = JSON.parse( tree );
+				loadDatabase('database.json');
 			}
-		} else {
-        	console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR:', error );
 		}
-	});
-	Redis.unref();
-})();
+	};
+	loadDatabase( DATABASE_NAME );
+	return lookUp;
+};

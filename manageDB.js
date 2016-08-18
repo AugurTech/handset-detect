@@ -1,28 +1,18 @@
 'use strict';
 const FileSystem = require('fs');
-const Redis = require('redis').createClient().on( 'error', reportError );
 const Request = require('https').request;
 const Unzip = require('unzip2').Extract;
 let DATABASE_PATH_FOLDER = __dirname +'/ultimate4';
 let DATABASE_PATH_ZIP = DATABASE_PATH_FOLDER + '.zip';
+let DATABASE_NAME = 'database.json';
 const REQUEST_OPTIONS = {};
 const UA_OR_JSON = /user-agent|\.json/g;
-let USE_MIN_DATA = false;
-const MIN_DATA_TO_LOAD = [
-        'general_vendor',
-        'general_model',
-        'general_type',
-        'general_browser',
-        'general_browser_engine',
-        'general_browser_version',
-        'general_platform',
-        'general_platform_version'
-    ];
+let ONLY_LOAD = [];
 
 function updateDatabase() {
     Request( REQUEST_OPTIONS, saveZipToFile ).once('error', reportError ).end();
     require('child_process').exec( 'rm -r ' + DATABASE_PATH_FOLDER );
-    // FileSystem.unlink( DATABASE_PATH_ZIP );
+    FileSystem.unlink( DATABASE_PATH_ZIP );
     reportLog('Updating database');
 }
 function saveZipToFile( readableStream ) {
@@ -39,7 +29,7 @@ function extractDatabaseZipFile() {
         .once('close', emitDoneDownloading );
 }
 function emitDoneDownloading() {
-    openDBCleanItAndSaveToRedis();
+    openDBCleanItAndSaveToFile();
     reportLog('Database extracted');
 }
 function reportLog( log ) {
@@ -52,10 +42,10 @@ function reportError( error ) {
         console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR:', error );
     }
 }
-function openDBCleanItAndSaveToRedis() {
+function openDBCleanItAndSaveToFile() {
     FileSystem.readdir( DATABASE_PATH_FOLDER, function( error, directory ) {
         if ( error !== null || directory === undefined ) {
-            return reportError({ from: 'openDBCleanItAndSaveToRedis', error: error, directory: directory });
+            return reportError({ from: 'openDBCleanItAndSaveToFile', error: error, directory: directory });
         }
         let deviceHash = {};
         let extrasHash = {};
@@ -91,15 +81,20 @@ function openDBCleanItAndSaveToRedis() {
                 }
             }
         }
-        Redis.set( 'hsd:tree', JSON.stringify( tree ), reportError );
-        reportLog('Finished loading. Restart your app or workers so that they use the new database');
+        FileSystem.writeFile( DATABASE_NAME, JSON.stringify( tree ), function( error ) {
+            if ( error === null ) {
+                reportLog('Finished loading. Restart your app or workers so that they use the new database');
+            } else {
+                console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR:', error );
+            }
+        });
     });
 }
 function openFileReturnObject( file, dataType ) {
     let data = JSON.parse( FileSystem.readFileSync( DATABASE_PATH_FOLDER + '/' + file ) )[ dataType ].hd_specs;
 
     for ( let property in data ) {
-        if ( USE_MIN_DATA === true && MIN_DATA_TO_LOAD.indexOf( property ) === -1 || data[ property ] === '' ) {
+        if ( ONLY_LOAD.length !== 0 && ONLY_LOAD.indexOf( property ) === -1 || data[ property ] === '' ) {
             data[ property ] = undefined;
         }
     }
@@ -131,7 +126,9 @@ function openJSONFile( file, tree ) {
 function loadOptionsAndcheckIfDBExists() {
     let config = JSON.parse( process.argv[2] );
 
-    USE_MIN_DATA = config.useMinData;
+    if ( config.onlyLoad !== undefined ) {
+        ONLY_LOAD = config.onlyLoad;
+    }
 
     if ( config.free === true ) {
         DATABASE_PATH_FOLDER = __dirname +'/free-edition';
@@ -144,9 +141,10 @@ function loadOptionsAndcheckIfDBExists() {
         }
         /* update the database every 3 days */
         setInterval( updateDatabase, 2.592e8 );
+        DATABASE_NAME = 'database-premium.json';
     }
 
-    FileSystem.access( DATABASE_PATH_FOLDER, function( error ) {
+    FileSystem.readFile( DATABASE_NAME, function( error ) {
         if ( error !== null && error.code === 'ENOENT' ) {
             if ( config.free === true ) {
                 extractDatabaseZipFile();

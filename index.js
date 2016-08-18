@@ -32,16 +32,19 @@ module.exports = function( config ) {
             hostname: 'api.handsetdetection.com'
         };
 
-        if ( config.cloud === true ) {
-            setHTTPAuthHeader( requestOptions, config );
-            return require('./cloud.js')( requestOptions );
-        } else if ( config.hosted === true ) {
+        if ( config.hosted === true ) {
             if ( ( config.autoUpdate === true || config.free === true ) && require('cluster').isMaster === true ) {
                 setHTTPAuthHeader( requestOptions, config, true );
+
                 config.requestOptions = requestOptions;
+
                 require('child_process').fork( __dirname + '/manageDB.js', [ JSON.stringify( config ) ] );
             }
-            return require('./hosted.js');
+            return require('./hosted.js')( config.free === true? 'database.json' : 'database-premium.json' );
+        } else if ( config.cloud === true ) {
+            setHTTPAuthHeader( requestOptions, config );
+
+            return require('./cloud.js')( requestOptions );
         }
     }
     console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Required params not met' );

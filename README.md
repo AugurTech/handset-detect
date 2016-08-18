@@ -1,6 +1,6 @@
 # The most advanced user-agent parser on the planet
 
-A light-weight, high-peformance (results in less than a millisecond) userAgent parser, built to detect the widest number of devices.
+A light-weight, high-performance (results in less than a millisecond) userAgent parser, built to detect the widest number of devices.
 
 See the full list of device's you can detect at http://www.handsetdetection.com/properties
 
