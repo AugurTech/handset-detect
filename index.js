@@ -40,7 +40,7 @@ module.exports = function( config ) {
 
                 require('child_process').fork( __dirname + '/manageDB.js', [ JSON.stringify( config ) ] );
             }
-            return require('./hosted.js')( config.free === true? '/database.json' : '/database-premium.json' );
+            return require('./hosted.js')( '/database' + ( config.free === undefined? '-premium' : '' ) + '.json' );
         } else if ( config.cloud === true ) {
             setHTTPAuthHeader( requestOptions, config );
 

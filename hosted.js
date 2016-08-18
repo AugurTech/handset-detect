@@ -8,7 +8,6 @@ const LRU_SET = LRU_CACHE.set.bind( LRU_CACHE );
 let TREE = {};
 
 function traverseTree( userAgent ) {
-	console.log( 'traverseTree', userAgent );
 	const lowerCaseUserAgent = userAgent.toLowerCase();
 	let normalizedUserAgent = lowerCaseUserAgent.replace( DEVICE_UA_FILTER , '' );
 	let parsedUserAgent;
@@ -71,7 +70,9 @@ function traverseTree( userAgent ) {
 
 function lookUp( userAgent ) {
 	if ( !LRU_GET(userAgent) ) {
-		console.log('cache-miss', userAgent);
+		console.log('traverseTree', userAgent);
+	} else {
+		console.log( 'cache-hit', userAgent );
 	}
 	return LRU_GET( userAgent ) || traverseTree( userAgent );
 }
@@ -81,8 +82,8 @@ module.exports = function( DATABASE_NAME ) {
 		try {
 			TREE = JSON.parse( require('fs').readFileSync( __dirname + databaseName, 'utf8' ) );
 		} catch( error ) {
-			console.log( databaseName, error );
-			if ( databaseName === 'database.json' ) {
+			// console.log( databaseName, error );
+			if ( databaseName === '/database.json' ) {
     			console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Loading database. Reinstall this npm module' );
 			} else {
 				loadDatabase('/database.json');
