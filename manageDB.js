@@ -4,7 +4,7 @@ const Request = require('https').request;
 const Unzip = require('unzip2').Extract;
 let DATABASE_PATH_FOLDER = __dirname +'/ultimate4';
 let DATABASE_PATH_ZIP = DATABASE_PATH_FOLDER + '.zip';
-let DATABASE_NAME = __dirname + 'database.json';
+let DATABASE_NAME = __dirname + '/database.json';
 const REQUEST_OPTIONS = {};
 const UA_OR_JSON = /user-agent|\.json/g;
 let ONLY_LOAD = [];
@@ -141,7 +141,7 @@ function loadOptionsAndcheckIfDBExists() {
         }
         /* update the database every 3 days */
         setInterval( updateDatabase, 2.592e8 );
-        DATABASE_NAME = __dirname + 'database-premium.json';
+        DATABASE_NAME = __dirname + '/database-premium.json';
     }
 
     FileSystem.readFile( DATABASE_NAME, function( error ) {
