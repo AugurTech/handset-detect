@@ -81,6 +81,7 @@ module.exports = function( DATABASE_NAME ) {
 		try {
 			TREE = JSON.parse( require('fs').readFileSync( databaseName, 'utf8' ) );
 		} catch( error ) {
+			console.log( databaseName, error );
 			if ( databaseName === 'database.json' ) {
     			console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Loading database. Reinstall this npm module' );
 			} else {
