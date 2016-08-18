@@ -1,6 +1,6 @@
 {
     "name": "handset-detect",
-    "version": "1.10.11",
+    "version": "1.10.12",
     "description": "The best userAgent parser on npm",
     "main": "index.js",
     "scripts": {

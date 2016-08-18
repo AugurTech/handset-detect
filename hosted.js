@@ -35,7 +35,7 @@ function traverseTree( userAgent ) {
 								i++;
 								/*falls through*/
 							case '1':
-								parsedUserAgent = path[ leaf ];
+								parsedUserAgent = Object.assign( {}, path[ leaf ] );
 								break;
 							case 'browser':
 							case 'platform':
@@ -75,8 +75,7 @@ function traverseTree( userAgent ) {
 
 function lookUp( userAgent ) {
 	if ( userAgent === 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36') {
-		console.log(`${ CACHE[userAgent]? 'cache-hit': 'cache-miss' }`);
-		console.log('traverseTree found', CACHE[ userAgent ] || traverseTree( userAgent ) );
+		console.log( `${ CACHE[userAgent]? 'cache-hit': 'cache-miss' }`, CACHE[ userAgent ] || traverseTree( userAgent ) );
 	}
 	// if ( !CACHE[ userAgent ] ) {
 	// 	console.log('traverseTree', userAgent);
