@@ -9,6 +9,8 @@ const REQUEST_OPTIONS = {};
 const UA_OR_JSON = /user-agent|\.json/g;
 let ONLY_LOAD = [];
 
+process.on('disconnect', ()=> process.kill( process.pid, 'SIGKILL' ) );
+
 function updateDatabase() {
     Request( REQUEST_OPTIONS, saveZipToFile ).once('error', reportError ).end();
     require('child_process').exec( 'rm -r ' + DATABASE_PATH_FOLDER );
