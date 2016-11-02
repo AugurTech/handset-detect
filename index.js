@@ -41,8 +41,8 @@ module.exports = function( config ) {
             if ( ( config.premium === true || config.free === true ) && require('cluster').isMaster === true ) {
                 setHTTPAuthHeader( requestOptions, config, true );
                 config.requestOptions = requestOptions;
+                require('child_process').fork( __dirname + '/lib/manageDB.js', [ JSON.stringify( config ) ] );
             }
-            console.log ('./lib/database' + ( config.free === undefined? '-premium' : '' ) + '.json' );
             return require('./lib/hosted.js')( '/database' + ( config.free === undefined? '-premium' : '' ) + '.json' );
         } else if ( config.cloud === true && config.username !== undefined && config.secret !== undefined  ) {
             setHTTPAuthHeader( requestOptions, config );
