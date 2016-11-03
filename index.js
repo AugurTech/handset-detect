@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = function( config ) {
     let setHTTPAuthHeader = function( requestOptions, config, updateDatabase ) {
         const md5 = ( string )=> require('crypto').createHash('md5').update( string ).digest('hex');
@@ -24,6 +25,10 @@ module.exports = function( config ) {
         }
     };
 
+    if (config === undefined || typeof config !== 'object' ) {
+        throw new Error('A config must be provided.');
+    }
+
     if ( config.username !== undefined && config.secret !== undefined || config.free === true ) {
         let requestOptions = {
             headers: {
@@ -33,20 +38,19 @@ module.exports = function( config ) {
         };
 
         if ( config.hosted === true ) {
-            if ( ( config.autoUpdate === true || config.free === true ) && require('cluster').isMaster === true ) {
+            if ( ( config.premium === true || config.free === true ) && require('cluster').isMaster === true ) {
                 setHTTPAuthHeader( requestOptions, config, true );
-
                 config.requestOptions = requestOptions;
-
-                require('child_process').fork( __dirname + '/manageDB.js', [ JSON.stringify( config ) ] );
+                require('child_process').fork( __dirname + '/lib/manageDB.js', [ JSON.stringify( config ) ] );
             }
-            return require('./hosted.js')( '/database' + ( config.free === undefined? '-premium' : '' ) + '.json' );
-        } else if ( config.cloud === true ) {
+            return require('./lib/hosted.js')( '/database' + ( config.free === undefined? '-premium' : '' ) + '.json' );
+        } else if ( config.cloud === true && config.username !== undefined && config.secret !== undefined  ) {
             setHTTPAuthHeader( requestOptions, config );
-
-            return require('./cloud.js')( requestOptions );
+            return require('./lib/cloud.js')( requestOptions );
+        } else {
+            throw new Error('Config must provide hosted:true or cloud:true. If using cloud, username and secret must be provided.');
         }
+    } else {
+        throw new Error('Config must provide username and secret or set the free parameter to true.');
     }
-    console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Required params not met' );
-    return ()=> console.error( new Date().toISOString(), 'User-Agent-Parser: ERROR: Required params not met' );
 };
