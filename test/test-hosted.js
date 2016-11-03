@@ -1,4 +1,4 @@
-/* globals describe, it, before */
+/* globals describe, it */
 'use strict';
 
 const TEST_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36';
@@ -92,13 +92,11 @@ describe( 'UltimateDB Paid Hosted User Agent Parsing Test', function() {
             'general_platform_version'
         ]});
 
-	// it( 'should do stuff', function() {
-	// 	userAgents.forEach(function(UA) {
-	// 		console.log(parse(UA));
-	// 	})
-	// });
-
-
+	it( 'should do stuff', function() {
+		userAgents.forEach(function(UA) {
+			parse(UA);
+		});
+	});
 });
 
 

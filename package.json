@@ -32,7 +32,8 @@
     "handset-detect"
   ],
   "devDependencies": {
-    "mocha": "^3.1.2"
+    "mocha": "^3.1.2",
+    "mocha-jshint": "^2.3.1"
   },
   "dependencies": {
     "json-stable-stringify": "^1.0.1",
