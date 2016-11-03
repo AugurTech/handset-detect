@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/AugurTech/handset-detect.svg?branch=master)](https://travis-ci.org/AugurTech/handset-detect)
 # node.js library for user agent parsing using the handset-detection database (handsetdetection.com)
 
 A light-weight, high-performance (results in less than a millisecond) userAgent parser, built to detect the widest number of devices.
