@@ -1,4 +1,4 @@
-# node.js library for handset-detection (handsetdetection.com)
+# node.js library for user agent parsing using the handset-detection database (handsetdetection.com)
 
 A light-weight, high-performance (results in less than a millisecond) userAgent parser, built to detect the widest number of devices.
 
