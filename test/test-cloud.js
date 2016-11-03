@@ -14,29 +14,26 @@ let parse = handsetDetect({ cloud:true, username:HANDSET_DETECT_USERNAME,secret:
 let e, response;
 
 describe( 'Cloud Function', function() {
-	it( 'should return the correct function when provided cloud flag', function() {
-		assert.equal(parse.name, 'query');
-	});
+    it( 'should return the correct function when provided cloud flag', function() {
+        assert.equal(parse.name, 'query');
+    });
 });
 
 describe( 'Cloud Parsing', function() {
-	before( function( done ) {
-		parse( TEST_UA, function( error, success ) {
-			response = success;
-			e = error;
-			done( );
-		});
+    before( function( done ) {
+        parse( TEST_UA, function( error, success ) {
+            response = success;
+            e = error;
+            done( );
+        });
 
-	});
-	it( 'should return an object with no errors', function() {
-		assert.equal(typeof response, 'object');
-		assert.equal(e, null);
-	});
+    });
+    it( 'should return an object with no errors', function() {
+        assert.equal(typeof response, 'object');
+        assert.equal(e, null);
+    });
 
-	it( 'should return browser as Chrome', function() {
-		assert.equal(response.hd_specs.general_browser, 'Chrome');
-	});
+    it( 'should return browser as Chrome', function() {
+        assert.equal(response.hd_specs.general_browser, 'Chrome');
+    });
 });
-
-
-

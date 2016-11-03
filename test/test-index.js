@@ -18,6 +18,7 @@ describe( 'Initialize', function() {
         assert.throws( () => handsetDetect({secret:'test'}), Error );
         assert.throws( () => handsetDetect({}), Error );
     });
+
     it( 'should throw an error if cloud or hosted is not provided', function() {
         assert.throws( () => handsetDetect({free:true,cloud:'false'}), Error );
         assert.throws( () => handsetDetect({free:true,hosted:'false'}), Error );
@@ -27,8 +28,4 @@ describe( 'Initialize', function() {
         assert.throws( () => handsetDetect({cloud:true,username: 'test'}), Error );
         assert.throws( () => handsetDetect({cloud:true,secret:'test'}), Error );
     });
-
 });
-
-
-
