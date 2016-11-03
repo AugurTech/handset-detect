@@ -163,7 +163,7 @@ const parse = require('handset-detect')({
 
 console.log( parse( userAgent ) );
 ```
-#### NOTE: the library automatically downloads the latest version of the premium database, every 3 days.
+#### NOTE: if you specify premium, the library automatically downloads the latest version of the premium database, every 3 days.
 When it updates the database, and you have `verbose:true` you'll see the following prompts:
 
 `User-Agent-Parser: Updating database`
@@ -214,7 +214,7 @@ parse( userAgent, function( error, success ) {
 });
 ```
 
-## Adding Logs: Specify verbose:true in logs
+## Adding Logs example: Specify verbose:true in config
 ```javascript
 require('handset-detect')({
     hosted: true,
@@ -222,6 +222,6 @@ require('handset-detect')({
     premium: true,
     username: 'username',
     secret: 'yourSecret',
-    verbose: true
+    verbose: true // pumps out console logs, otherwise console.logs are silent
 });
 ```
