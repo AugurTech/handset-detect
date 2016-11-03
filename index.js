@@ -1,6 +1,7 @@
 'use strict';
 
-let setHTTPAuthHeader = function( requestOptions, config, updateDatabase ) {
+module.exports = function( config ) {
+    let setHTTPAuthHeader = function( requestOptions, config, updateDatabase ) {
         const md5 = ( string )=> require('crypto').createHash('md5').update( string ).digest('hex');
         const HA1 = md5( config.username + ':APIv4:' + config.secret );
         const HA2 = md5( updateDatabase === true?
@@ -24,7 +25,6 @@ let setHTTPAuthHeader = function( requestOptions, config, updateDatabase ) {
         }
     };
 
-module.exports = function( config ) {
     if (config === undefined || typeof config !== 'object' ) {
         throw new Error('A config must be provided.');
     }
