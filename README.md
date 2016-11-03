@@ -156,15 +156,15 @@ let userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebK
 const parse = require('handset-detect')({
     hosted: true,
     //onlyLoad: ['general_model','general_vendor','general_browser','general_platform'],
-    autoUpdate: true,
+    premium: true,
     username: 'username',
     secret: 'yourSecret'
 });
 
 console.log( parse( userAgent ) );
 ```
-#### NOTE: autoUpdate automatically downloads the latest version of the premium database, every 3 days.
-When it updates the database, you'll see the following prompts:
+#### NOTE: the library automatically downloads the latest version of the premium database, every 3 days.
+When it updates the database, and you have `verbose:true` you'll see the following prompts:
 
 `User-Agent-Parser: Updating database`
 
@@ -179,7 +179,7 @@ When it updates the database, you'll see the following prompts:
 require('handset-detect')({
     hosted: true,
     //onlyLoad: ['general_model','general_vendor','general_browser','general_platform'],
-    autoUpdate: true,
+    premium: true,
     username: 'username',
     secret: 'yourSecret'
 });
@@ -219,7 +219,7 @@ parse( userAgent, function( error, success ) {
 require('handset-detect')({
     hosted: true,
     //onlyLoad: ['general_model','general_vendor','general_browser','general_platform'],
-    autoUpdate: true,
+    premium: true,
     username: 'username',
     secret: 'yourSecret',
     verbose: true
