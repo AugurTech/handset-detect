@@ -213,3 +213,15 @@ parse( userAgent, function( error, success ) {
     console.log( error, success );
 });
 ```
+
+## Adding Logs: Specify verbose:true in logs
+```javascript
+require('handset-detect')({
+    hosted: true,
+    //onlyLoad: ['general_model','general_vendor','general_browser','general_platform'],
+    autoUpdate: true,
+    username: 'username',
+    secret: 'yourSecret',
+    verbose: true
+});
+```
