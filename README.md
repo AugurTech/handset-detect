@@ -1,5 +1,8 @@
 [![npm version](https://badge.fury.io/js/handset-detect.svg)](https://badge.fury.io/js/handset-detect)
 [![Build Status](https://travis-ci.org/AugurTech/handset-detect.svg?branch=master)](https://travis-ci.org/AugurTech/handset-detect)
+[![Dependency Status][david-image]][david-url]
+[![devDependency Status][david-dev-image]][david-dev-url]
+
 # node.js library for user agent parsing using the handset-detection database (handsetdetection.com)
 
 A light-weight, high-performance (results in less than a millisecond) userAgent parser, built to detect the widest number of devices.
@@ -227,3 +230,7 @@ require('handset-detect')({
     verbose: true // pumps out console logs, otherwise console.logs are silent
 });
 ```
+[david-image]: https://david-dm.org/jferge/handset-detect.svg
+[david-url]: https://david-dm.org/jferge/handset-detect
+[david-dev-image]: https://david-dm.org/jferge/handset-detect/dev-status.svg
+[david-dev-url]: https://david-dm.org/jferge/handset-detect#info=devDependencies
