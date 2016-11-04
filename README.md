@@ -230,7 +230,7 @@ require('handset-detect')({
     verbose: true // pumps out console logs, otherwise console.logs are silent
 });
 ```
-[david-image]: https://david-dm.org/jferge/handset-detect.svg
-[david-url]: https://david-dm.org/jferge/handset-detect
-[david-dev-image]: https://david-dm.org/jferge/handset-detect/dev-status.svg
-[david-dev-url]: https://david-dm.org/jferge/handset-detect#info=devDependencies
+[david-image]: https://david-dm.org/augurtech/handset-detect.svg
+[david-url]: https://david-dm.org/augurtech/handset-detect
+[david-dev-image]: https://david-dm.org/augurtech/handset-detect/dev-status.svg
+[david-dev-url]: https://david-dm.org/augurtech/handset-detect#info=devDependencies
