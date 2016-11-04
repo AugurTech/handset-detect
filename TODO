@@ -1,0 +1,9 @@
+rewrite README to be more descriptive
+write tests for lib/managedb.js
+rewrite index.js to be more clear
+write performance tests
+write more user agent example tests
+write tests for functionality of only_load
+write tests that test premium download and extraction
+have option to update free database
+write thorough more code comments
