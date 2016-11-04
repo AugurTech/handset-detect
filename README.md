@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/handset-detect.svg)](https://badge.fury.io/js/handset-detect)
 [![Build Status](https://travis-ci.org/AugurTech/handset-detect.svg?branch=master)](https://travis-ci.org/AugurTech/handset-detect)
 # node.js library for user agent parsing using the handset-detection database (handsetdetection.com)
 
