@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "json-stable-stringify": "^1.0.1",
+    "redis": "^2.6.5",
     "unzip2": "^0.2.5"
   },
   "repository": {

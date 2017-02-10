@@ -21,10 +21,10 @@ describe( 'Cloud Function', function() {
 
 describe( 'Cloud Parsing', function() {
     before( function( done ) {
-        parse( TEST_UA, function( error, success ) {
-            response = success;
-            e = error;
-            done( );
+        parse( TEST_UA )
+	.then(ua_data => {
+            response = ua_data;
+            done();
         });
 
     });
