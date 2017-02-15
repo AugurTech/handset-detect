@@ -22,11 +22,10 @@ describe( 'Cloud Function', function() {
 describe( 'Cloud Parsing', function() {
     before( function( done ) {
         parse( TEST_UA )
-	.then(ua_data => {
+        .then(ua_data => {
             response = ua_data;
             done();
         });
-
     });
     it( 'should return an object with no errors', function() {
         assert.equal(typeof response, 'object');
