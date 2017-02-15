@@ -3,6 +3,7 @@
   "version": "5.0.0",
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
+  "engines": { "node" : ">=7.5.0" },
   "scripts": {
     "test": "mocha --harmony_async_await test"
   },
@@ -19,6 +20,10 @@
     {
       "name": "Brandon Jimenez",
       "email": "Jiminikiz@users.noreply.github.com"
+    },
+    {
+      "name": "Stephen Thoma",
+      "email": "stephenthoma@users.noreply.github.com"
     }
   ],
   "license": "ISC",
