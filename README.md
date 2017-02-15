@@ -214,8 +214,25 @@ const parse = require('handset-detect')({
     secret: 'yourSecret'
 });
 
-parse( userAgent, function( error, success ) {
-    console.log( error, success );
+parse( userAgent )
+.then(uaData => {
+    console.log(uaData);
+});
+```
+
+## Using Caching
+Similar to doing API-based lookups, just set `cache: true`.
+Caching currently requires Node >= 7.5.0 run with the flag `--harmony-async-await`.
+```javascript
+const parse = require('handset-detect')({
+    cache: true,
+    username: 'userName',
+    secret: 'yourSecret'
+});
+
+parse( userAgent )
+.then(uaData => {
+    console.log(uaData);
 });
 ```
 

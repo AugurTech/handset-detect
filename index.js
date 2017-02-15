@@ -37,7 +37,10 @@ module.exports = function( config ) {
             hostname: 'api.handsetdetection.com'
         };
 
-        if ( config.hosted === true ) {
+        if ( config.cache === true ) {
+            setHTTPAuthHeader( requestOptions, config );
+            return require('./lib/cache.js')( requestOptions );
+        } else if ( config.hosted === true ) {
             if ( ( config.premium === true || config.free === true ) && require('cluster').isMaster === true ) {
                 setHTTPAuthHeader( requestOptions, config, true );
                 config.requestOptions = requestOptions;
