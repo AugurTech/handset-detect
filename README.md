@@ -214,15 +214,13 @@ const parse = require('handset-detect')({
     secret: 'yourSecret'
 });
 
-parse( userAgent )
-.then(uaData => {
-    console.log(uaData);
+parse( userAgent, function( error, success ) {
+    console.log( error, success );
 });
 ```
 
 ## Using Caching
-Similar to doing API-based lookups, just set `cache: true`.
-Caching currently requires Node >= 7.5.0 run with the flag `--harmony-async-await`.
+Synchronous caching ability. On cache miss returns null, and does a lookup in the background. Future requests for the same UA will be cached in Redis and in memory. Redis cache is pulled into memory on process start. Redis cache TTL is set to 20 days.
 ```javascript
 const parse = require('handset-detect')({
     cache: true,
@@ -230,10 +228,8 @@ const parse = require('handset-detect')({
     secret: 'yourSecret'
 });
 
-parse( userAgent )
-.then(uaData => {
-    console.log(uaData);
-});
+console.log( parse( userAgent ) ); // => null
+console.log( parse( userAgent ) ); // => actual data
 ```
 
 ## Adding Logs example: Specify verbose:true in config
