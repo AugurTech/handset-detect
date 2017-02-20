@@ -1,11 +1,10 @@
 {
   "name": "handset-detect",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
-  "engines": { "node" : ">=7.5.0" },
   "scripts": {
-    "test": "mocha --harmony_async_await test"
+    "test": "redis-cli flushall; redis-cli set cache:userAgentParser:a b; mocha test"
   },
   "author": "Nawar Alsafar",
   "contributors": [
@@ -37,6 +36,7 @@
     "handset-detect"
   ],
   "devDependencies": {
+    "colors": "^1.1.2",
     "mocha": "^3.1.2",
     "mocha-jshint": "^2.3.1"
   },
