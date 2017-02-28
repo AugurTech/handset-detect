@@ -25,7 +25,7 @@ module.exports = function( config ) {
         }
     };
 
-    if (config === undefined || typeof config !== 'object' ) {
+    if ( config === undefined || typeof config !== 'object' ) {
         throw new Error('A config must be provided.');
     }
 
