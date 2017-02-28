@@ -1,6 +1,6 @@
 {
   "name": "handset-detect",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
   "scripts": {
