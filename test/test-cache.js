@@ -30,8 +30,9 @@ describe( 'Caching'.bold.cyan.underline, function() {
     });
 
     it( 'should load Redis into memory cache', function() {
-        assert( parse('a') !== null, true );
-        assert( parse('a'), 'b' );
+        const redisTestData = parse('a');
+        assert( redisTestData !== null, true );
+        assert( redisTestData.b, 1 );
     });
 
     describe( 'Memory cache miss'.bold.blue, function() {
@@ -60,7 +61,7 @@ describe( 'Caching'.bold.cyan.underline, function() {
         });
 
         it( 'should return browser as Mobile Safari', function() {
-            assert( response.hd_specs.general_browser, 'Mobile Safari' );
+            assert( response.general_browser, 'Mobile Safari' );
         });
     });
 
