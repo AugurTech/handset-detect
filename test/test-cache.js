@@ -42,7 +42,6 @@ describe( 'Caching'.bold.cyan.underline, function() {
         });
 
         it( 'should return null', function() {
-            assert( typeof response, 'object' );
             assert( response, null );
         });
     });
@@ -57,7 +56,8 @@ describe( 'Caching'.bold.cyan.underline, function() {
         });
 
         it( 'should return object', function() {
-            assert( typeof response, 'object' );
+            assert( response !== undefined && response !== null && response.constructor === Object , true );
+
         });
 
         it( 'should return browser as Mobile Safari', function() {
@@ -88,7 +88,7 @@ describe( 'Caching'.bold.cyan.underline, function() {
         });
 
         it( 'should store the user agent info', function() {
-            assert( typeof redis_res, 'object' );
+            assert( redis_res !== undefined && redis_res !== null && redis_res.constructor === Object , true );
         });
 
         it( 'should set the TLL', function() {
