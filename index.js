@@ -39,7 +39,7 @@ module.exports = function( config ) {
 
         if ( config.cache === true ) {
             setHTTPAuthHeader( requestOptions, config );
-            return require('./lib/cache.js')( requestOptions );
+            return require('./lib/cache.js')( requestOptions, config.onlyLoad );
         } else if ( config.hosted === true ) {
             if ( ( config.premium === true || config.free === true ) && require('cluster').isMaster === true ) {
                 setHTTPAuthHeader( requestOptions, config, true );
@@ -49,7 +49,7 @@ module.exports = function( config ) {
             return require('./lib/hosted.js')( '/database' + ( config.free === undefined? '-premium' : '' ) + '.json' );
         } else if ( config.cloud === true && config.username !== undefined && config.secret !== undefined  ) {
             setHTTPAuthHeader( requestOptions, config );
-            return require('./lib/cloud.js')( requestOptions );
+            return require('./lib/cloud.js')( requestOptions, config.onlyLoad );
         } else {
             throw new Error('Config must provide hosted:true or cloud:true. If using cloud, username and secret must be provided.');
         }
