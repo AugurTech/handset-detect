@@ -4,6 +4,7 @@ const assert = require('assert').deepStrictEqual;
 const handsetDetect = require('../');
 const parse = handsetDetect({
     cloud: true,
+    onlyLoad: [ 'general_model', 'general_vendor', 'general_browser', 'general_platform' ],
     username: process.env.HANDSET_DETECT_USERNAME,
     secret: process.env.HANDSET_DETECT_SECRET
 });
@@ -32,6 +33,14 @@ describe( 'Cloud Parsing', function() {
     });
 
     it( 'should return browser as Chrome', function() {
-        assert( response.hd_specs.general_browser, 'Chrome' );
+        assert( response.general_model, 'OS X PC' );
+        assert( response.general_vendor, 'Generic' );
+        assert( response.general_browser, 'Chrome' );
+        assert( response.general_platform, 'OS X' );
+    });
+
+    it( 'should only return values passed in onlyLoad', function() {
+        assert( response.display_ppi, undefined );
+
     });
 });
