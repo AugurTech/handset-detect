@@ -92,8 +92,7 @@ describe( 'Caching'.bold.cyan.underline, function() {
         });
 
         it( 'should set the TLL', function() {
-            const date = new Date().getTime() + 86400 * 1000 * 20 - 1000; // -1000 due factor in earlier timeouts
-            assert( redis_ttl >= date, true );
+            assert( redis_ttl >= 1727998, true );
         });
     });
 });
