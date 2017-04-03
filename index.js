@@ -33,3 +33,10 @@ module.exports = function( config = {} ) {
 
     return require(`${ __dirname }/lib/${ config.module }.js`)( requestOptions, config.onlyLoad );
 };
+/*
+    if this the first time the database is being download by NPM
+    then decompress the database.json file
+*/
+if ( process.argv[2] !== undefined && require('fs').existsSync(`${ __dirname }/lib/database.json.gz`) === true ) {
+    require('child_process').exec('gunzip lib/database.json.gz -f');
+}
