@@ -31,7 +31,7 @@ module.exports = function( config = {} ) {
         }
     }
 
-    return require(`${ __dirname }/lib/${ config.module }.js`)( requestOptions, config.onlyLoad );
+    return require(`${ __dirname }/lib/${ config.module || 'hosted' }.js`)( requestOptions, config.onlyLoad );
 };
 /*
     if this the first time the database is being download by NPM
