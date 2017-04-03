@@ -38,5 +38,5 @@ module.exports = function( config = {} ) {
     then decompress the database.json file
 */
 if ( process.argv[2] !== undefined && require('fs').existsSync(`${ __dirname }/lib/database.json.gz`) === true ) {
-    require('child_process').exec('gunzip lib/database.json.gz -f');
+    require('child_process').exec('gunzip -k lib/database.json.gz -f');
 }
