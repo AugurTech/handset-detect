@@ -33,13 +33,11 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
         it('should throw an error if no config', function() {
             Assert.throws( HandsetDetect, Error );
         });
-        it('should throw an error if username and secret or free aren not provided', function() {
+        it('should throw an error if username and secret and module or free are not provided', function() {
             Assert.throws( ()=> HandsetDetect({}), Error );
             Assert.throws( ()=> HandsetDetect({ username: 'test' }), Error );
             Assert.throws( ()=> HandsetDetect({ secret: 'test' }), Error );
-        });
-        it('should throw an error if module is not provided', function() {
-            Assert.throws( ()=> HandsetDetect({ free: true }), Error );
+            Assert.throws( ()=> HandsetDetect({ secret: 'test', username: 'test' }), Error );
         });
         it('should throw an error if cloud is provided but no username or password', function() {
             Assert.throws( ()=> HandsetDetect({ cloud: true, username: 'test' }), Error );
@@ -92,10 +90,9 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
                 assert( parsedUA.display_ppi, undefined );
             });
         });
-        describe('major browser detection'.bold.blue, function() {
-            it('should work on major browsers', function() {
-                testBrowsers( handsetDetect, true );
-            });
+        describe('Major browser detection'.bold.blue, function() {
+            testSafari( handsetDetect, true );
+            testIE( handsetDetect, true );
         });
     });
     describe('Cache.js module'.cyan, function() {
@@ -186,8 +183,9 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
                 const parsedUA = handsetDetect( TEST_UA );
                 assert( parsedUA.general_browser , 'Chrome');
             });
-            it('should detect major browsers', function() {
-                testBrowsers( handsetDetect );
+            describe('Major browser detection'.bold.blue, function() {
+                testSafari( handsetDetect );
+                testIE( handsetDetect );
             });
         });
         describe('UltimateDB Paid Hosted Parsing'.bold.blue, function() {
@@ -217,78 +215,69 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
             it('should return browser as Chrome', function() {
                 assert( handsetDetect( TEST_UA ).general_browser, 'Chrome' );
             });
-            it('should detect major browsers', function() {
-                testBrowsers( handsetDetect );
+            describe('Major browser detection'.bold.blue, function() {
+                testSafari( handsetDetect );
+                testIE( handsetDetect );
             });
         });
     });
 });
-function testBrowsers( handsetDetect, useCallback ) {
-    testSafari( handsetDetect, useCallback );
-    testIE( handsetDetect, useCallback );
-}
 function testSafari( handsetDetect, useCallback ) {
-    describe('Safari'.bold.cyan, function() {
-        this.timeout(30e3);
-        it('it correct classify Safari 1.03 (Jaguar) to Safari 10.1 (Sierra) as "Safari"', function( done ) {
-            const uaArray = [
-                // OS X 10.2 Jaguar
-                'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/85.8.5 (KHTML, like Gecko) Safari/85.8.1',
-                // OSX 10.3 Panther
-                'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/312.8.1 (KHTML, like Gecko) Safari/312.6',
-                // OSX 10.4 Tiger
-                'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_7; en-us) AppleWebKit/533.4 (KHTML, like Gecko) Version/4.1 Safari/533.4',
-                // OSX 10.5 Leopard
-                'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_5_8; zh-cn) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-                // OSX 10.6 Snow Leopard
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
-                // OSX 10.7 Lion
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7',
-                // OSX 10.8 Mountain Lion
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/600.8.9 (KHTML, like Gecko) Version/6.2.8 Safari/537.85.17',
-                // OSX 10.9 Mavericks
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A',
-                // OSX 10.10 Yosimite
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_7) AppleWebKit/602.1.35 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.4',
-                // OSX 10.11 El Captain
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.32 (KHTML, like Gecko) Version/8.1 Safari/601.1.32',
-                // MacOS 10.12 Sierra
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/603.2.1 (KHTML, like Gecko) Version/10.1.1 Safari/603.2.1'
-            ];
-            isCorrectBrowser( handsetDetect, uaArray, 'Safari', useCallback, done );
-        });
+    it('it correct classify Safari 1.03 (Jaguar) to Safari 10.1 (Sierra) as "Safari"', function( done ) {
+        const uaArray = [
+            // OS X 10.2 Jaguar
+            'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/85.8.5 (KHTML, like Gecko) Safari/85.8.1',
+            // OSX 10.3 Panther
+            'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/312.8.1 (KHTML, like Gecko) Safari/312.6',
+            // OSX 10.4 Tiger
+            'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_7; en-us) AppleWebKit/533.4 (KHTML, like Gecko) Version/4.1 Safari/533.4',
+            // OSX 10.5 Leopard
+            'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_5_8; zh-cn) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
+            // OSX 10.6 Snow Leopard
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
+            // OSX 10.7 Lion
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7',
+            // OSX 10.8 Mountain Lion
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/600.8.9 (KHTML, like Gecko) Version/6.2.8 Safari/537.85.17',
+            // OSX 10.9 Mavericks
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A',
+            // OSX 10.10 Yosimite
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_7) AppleWebKit/602.1.35 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.4',
+            // OSX 10.11 El Captain
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.32 (KHTML, like Gecko) Version/8.1 Safari/601.1.32',
+            // MacOS 10.12 Sierra
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/603.2.1 (KHTML, like Gecko) Version/10.1.1 Safari/603.2.1'
+        ];
+        isCorrectBrowser( handsetDetect, uaArray, 'Safari', useCallback, done );
     });
 }
 function testIE( handsetDetect, useCallback ) {
-    describe('Internet Explorer'.bold.cyan, function() {
-        this.timeout(30e3);
-        it('it correct classify IE 1 to IE 11 as "Internet Explorer"', function( done ) {
-            const uaArray = [
-                // IE 1
-                'Mozilla/4.0 (compatible; MSIE 1.0.0; Windows 95; Trident/4.0)',
-                // IE 2
-                'Mozilla/1.22 (compatible; MSIE 2.0; Windows 95)',
-                // IE 3
-                'Mozilla/2.0 (compatible; MSIE 3.0; Windows 95)',
-                // IE 4
-                'Mozilla/4.0 (compatible; MSIE 4.01; Windows 95)',
-                // IE 5
-                'Mozilla/4.0 (compatible; MSIE 5.0; Windows ME) Opera 6.0 [de]',
-                // IE 6
-                'Mozilla/4.0 (compatible; MSIE 6.0b; Windows NT 4.0)',
-                // IE 7
-                'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/7.0; Touch; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0)',
-                // IE 8
-                'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; WOW64; Trident/4.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0E; .NET4.0C)',
-                // IE 9
-                'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))',
-                // IE 10
-                'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; WOW64; Trident/7.0; Touch; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0)',
-                // IE 11
-                'Mozilla/5.0 (Windows NT 10.0; Trident/7.0; NP08; yie10; rv:11.0) like Gecko'
-            ];
-            isCorrectBrowser( handsetDetect, uaArray, 'Internet Explorer', useCallback, done );
-        });
+    it('it correct classify IE 1 to IE 11 as "Internet Explorer"', function( done ) {
+        const uaArray = [
+            // IE 1
+            'Mozilla/4.0 (compatible; MSIE 1.0.0; Windows 95; Trident/4.0)',
+            // IE 2
+            'Mozilla/1.22 (compatible; MSIE 2.0; Windows 95)',
+            // IE 3
+            'Mozilla/2.0 (compatible; MSIE 3.0; Windows 95)',
+            // IE 4
+            'Mozilla/4.0 (compatible; MSIE 4.01; Windows 95)',
+            // IE 5
+            'Mozilla/4.0 (compatible; MSIE 5.0; Windows ME) Opera 6.0 [de]',
+            // IE 6
+            'Mozilla/4.0 (compatible; MSIE 6.0b; Windows NT 4.0)',
+            // IE 7
+            'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/7.0; Touch; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0)',
+            // IE 8
+            'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; WOW64; Trident/4.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0E; .NET4.0C)',
+            // IE 9
+            'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))',
+            // IE 10
+            'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; WOW64; Trident/7.0; Touch; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0)',
+            // IE 11
+            'Mozilla/5.0 (Windows NT 10.0; Trident/7.0; NP08; yie10; rv:11.0) like Gecko'
+        ];
+        isCorrectBrowser( handsetDetect, uaArray, 'Internet Explorer', useCallback, done );
     });
 }
 function isCorrectBrowser( handsetDetect, uaArray, browserName, useCallback, done ) {

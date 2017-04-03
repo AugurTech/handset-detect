@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function( config = {} ) {
-    if ( config === null ) {
+    if ( config === null || Object.keys( config ).length === 0 ) {
         throw new Error('A config must be provided.');
     } else if ( config.free === undefined && config.module === undefined ) {
         throw new Error('Config must provide config.hosted === true or config.cloud === true. When using cloud, config.username && config.secret must be defined.');
@@ -37,6 +37,6 @@ module.exports = function( config = {} ) {
     if this the first time the database is being download by NPM
     then decompress the database.json file
 */
-if ( process.argv[2] !== undefined && require('fs').existsSync(`${ __dirname }/lib/database.json.gz`) === true ) {
+if ( process.argv[2] !== undefined && require('fs').existsSync(`${ __dirname }/lib/database.json`) === false ) {
     require('child_process').exec('gunzip -k lib/database.json.gz -f');
 }
