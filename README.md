@@ -16,18 +16,7 @@ A light-weight, high-performance userAgent parser that detects >50 browsers, ~40
 * 359 OS versions
 ###### devices detection
 * `35,156 devices` from `3,281 device manufacturers`
-* Including
-**`754 bots`
-**`14 cameras`
-**`12 computer devices`
-**`31 gaming consoles`
-**`1 glass device`
-**`25,035 mobile devices`
-**`30 netbooks`
-**`136 set-top-boxes`
-**`9,126 tablets`
-**`15 smart-tvs`
-**`2 smart-watches`
+* Including `754 bots`, `14 cameras`, `12 computer devices`, `31 gaming consoles`, `1 glass device`, `25,035 mobile devices`, `30 netbooks`, `136 set-top-boxes`, `9,126 tablets`, `15 smart-tvs`, `2 smart-watches`
 
 #### and more...
 See the full list of devices you can detect at https://www.handsetdetection.com/properties
