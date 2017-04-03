@@ -1,10 +1,5 @@
 *~
-*.sublime*
 *.log*
 node_modules
-ultimate4/
-ultimate4.zip
-test.js
-free-edition/
-database-premium.json
+database.json
 .DS_Store
