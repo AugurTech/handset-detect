@@ -175,7 +175,7 @@ console.log( userAgentParser( userAgent ) );
 ##### autoUpdate
 If enabled, a new event loop is created on the master thread / master event loop. This forked event loop will manage datebase updates for you. A new database is downloaded every 3 days.
 
-### module: `cloud`
+### module `cloud`
 ```javascript
 const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
