@@ -39,7 +39,6 @@
   "dependencies": {
     "json-stable-stringify": "1.x",
     "redis": "2.x",
-    "hiredis": "0.5.x",
     "unzip2": "0.2.x"
   },
   "devDependencies": {
