@@ -22,7 +22,7 @@ A light-weight, high-performance userAgent parser that detects >50 browsers, ~40
 See the full list of devices you can detect at https://www.handsetdetection.com/properties
 
 
-## How to use
+## How to use; TLDR
 ```javascript
 // load the library
 const userAgentParser = require('handset-detect')({ free: true });
@@ -66,12 +66,12 @@ This client is the free version of a premium, enterprise-grade UA parser. If you
 ```javascript
 // enterprise setup
 const config = {
-    username: '007', //required to access enterprise
-    secret: 'shhh', //required to access enterprise
-    module: 'hosted', // required to be either hosted, cloud, or cache
-    verbose: false,   // optional. make the library console.log, for debugging
-    autoUpdate: false, // optional. for hosted only. auto update your database.json file
-    onlyLoad: []    // optional. for cloud and cache only. returns the attributes you specify
+    username: '007',    // required to access enterprise
+    secret: 'shhh',     // required to access enterprise
+    module: 'hosted',   // required to be either hosted, cloud, or cache
+    verbose: false,     // optional. make the library console.log, for debugging
+    autoUpdate: false,  // optional. for hosted only. auto update your database.json file
+    onlyLoad: []        // optional. for cloud and cache only. returns the attributes you specify
 };
 const userAgentParser = require('handset-detect')( config );
 ```
