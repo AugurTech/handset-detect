@@ -30,18 +30,20 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
         it('should be a function', function() {
             Assert.deepStrictEqual( HandsetDetect.constructor, Function );
         });
-        it('should throw an error if no config', function() {
+        it('should throw an error if no config is provided', function() {
             Assert.throws( HandsetDetect, Error );
         });
-        it('should throw an error if username and secret and module or free are not provided', function() {
+        it('should throw an error if username and secret and module (or free) are not provided', function() {
             Assert.throws( ()=> HandsetDetect({}), Error );
             Assert.throws( ()=> HandsetDetect({ username: 'test' }), Error );
             Assert.throws( ()=> HandsetDetect({ secret: 'test' }), Error );
             Assert.throws( ()=> HandsetDetect({ secret: 'test', username: 'test' }), Error );
         });
-        it('should throw an error if cloud is provided but no username or password', function() {
-            Assert.throws( ()=> HandsetDetect({ cloud: true, username: 'test' }), Error );
-            Assert.throws( ()=> HandsetDetect({ cloud: true, secret: 'test' }), Error );
+        it('should throw an error if (cloud or autoUpdate) is provided but no username or password is provided', function() {
+            Assert.throws( ()=> HandsetDetect({ module: 'cloud', username: 'test' }), Error );
+            Assert.throws( ()=> HandsetDetect({ module: 'cloud', secret: 'test' }), Error );
+            Assert.throws( ()=> HandsetDetect({ module: 'hosted', autoUpdate: true, username: 'test' }), Error );
+            Assert.throws( ()=> HandsetDetect({ module: 'hosted', autoUpdate: true, secret: 'test' }), Error );
         });
     });
     describe('Cloud.js module'.cyan, function() {
@@ -169,9 +171,9 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
     describe('Hosted.js module'.cyan, function() {
         const TEST_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36';
         const assert = Assert.deepStrictEqual;
-
         describe('Free Hosted Parsing'.blue.bold, function() {
             const handsetDetect = HandsetDetect({ module: 'hosted', free: true, verbose: true });
+            // console.log( handsetDetect( TEST_UA ) )
 
             it('should return the correct function when provided hosted flag', function() {
                 assert( handsetDetect.constructor, Function );
@@ -181,7 +183,7 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
             });
             it('should return browser as Chrome', function() {
                 const parsedUA = handsetDetect( TEST_UA );
-                assert( parsedUA.general_browser , 'Chrome');
+                assert( parsedUA.browser , 'Chrome');
             });
             describe('Major browser detection'.bold.blue, function() {
                 testSafari( handsetDetect );
@@ -196,14 +198,14 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
                 module: 'hosted',
                 autoUpdate: true,
                 onlyLoad: [
-                    'general_vendor',
-                    'general_model',
-                    'general_type',
-                    'general_browser',
-                    'general_browser_engine',
-                    'general_browser_version',
-                    'general_platform',
-                    'general_platform_version'
+                    'vendor',
+                    'model',
+                    'type',
+                    'browser',
+                    'browser_engine',
+                    'browser_version',
+                    'platform',
+                    'platform_version'
                 ]
             });
             it('should return the correct module', function() {
@@ -213,7 +215,7 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
                 assert( handsetDetect( TEST_UA ).constructor, Object );
             });
             it('should return browser as Chrome', function() {
-                assert( handsetDetect( TEST_UA ).general_browser, 'Chrome' );
+                assert( handsetDetect( TEST_UA ).browser, 'Chrome' );
             });
             describe('Major browser detection'.bold.blue, function() {
                 testSafari( handsetDetect );
@@ -282,13 +284,13 @@ function testIE( handsetDetect, useCallback ) {
 }
 function isCorrectBrowser( handsetDetect, uaArray, browserName, useCallback, done ) {
     let i = uaArray.length;
-    const queue = new Array(i);
+    let queue = i;
 
     function correctBrowserTest( error, parsedUA ) {
         Assert.deepStrictEqual( error, null );
-        Assert.deepStrictEqual( parsedUA.general_browser, browserName );
-        queue.pop();
-        if ( queue.length === 0 ) {
+        Assert.deepStrictEqual( parsedUA.general_browser || parsedUA.browser, browserName );
+
+        if ( --queue === 0 ) {
             done();
         }
     }

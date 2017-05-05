@@ -1,10 +1,10 @@
 'use strict';
 module.exports = function( config = {} ) {
-    if ( config === null || Object.keys( config ).length === 0 ) {
-        throw new Error('A config must be provided.');
+    if ( config === null || config.constructor !== Object || Object.keys( config ).length === 0 ) {
+        throw new Error('A config object must be provided.');
     } else if ( config.free === undefined && config.module === undefined ) {
-        throw new Error('Config must provide config.hosted === true or config.cloud === true. When using cloud, config.username && config.secret must be defined.');
-    } else if ( config.free === undefined && config.username === undefined && config.secret === undefined ) {
+        throw new Error('You must specify either config.module or config.free.');
+    } else if ( config.free === undefined && ( config.username === undefined || config.secret === undefined ) ) {
         throw new Error('Config must provide username and secret or set the free parameter to true.');
     }
 
@@ -22,21 +22,12 @@ module.exports = function( config = {} ) {
 
     requestOptions.headers.authorization = `Digest username="${ config.username }", realm="APIv4", nonce="APIv4", uri="${ requestOptions.path }", cnonce="${ cnonce }", nc=00000001, qop=auth, response="${ response }", opaque="APIv4"`;
 
-    if ( config.module === 'hosted' ) {
-        if ( config.autoUpdate === true && require('cluster').isMaster === true ) {
-            require('child_process').fork(
-                __dirname + '/lib/manageDB.js',
-                [ JSON.stringify({ config, requestOptions }) ]
-            );
-        }
+    if ( config.module === 'hosted' && config.autoUpdate === true && require('cluster').isMaster === true ) {
+        require('child_process').fork(
+            __dirname + '/lib/manageDB.js',
+            [ JSON.stringify({ config, requestOptions }) ]
+        );
     }
 
     return require(`${ __dirname }/lib/${ config.module || 'hosted' }.js`)( requestOptions, config.onlyLoad );
 };
-/*
-    if this the first time the database is being download by NPM
-    then decompress the database.json file
-*/
-if ( process.argv[2] !== undefined && require('fs').existsSync(`${ __dirname }/lib/database.json`) === false ) {
-    require('child_process').exec('gunzip -k lib/database.json.gz -f');
-}

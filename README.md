@@ -30,106 +30,22 @@ const userAgentParser = require('handset-detect')({ free: true });
 const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 // like this
 userAgentParser( userAgent );
-// returns an obj or undefined
-```
-### Sample response
-```javascript
-/*
-    The object returned looks like this...
-    NOTES:
-        general_vendor === 'device maker'
-        general_model === 'device model name'
-        general_platform === 'OS name'
-        general_type === 'device type, like PC, Mobile, SmartTV, etc'
+/* returns:
+        {
+            vendor: 'Apple',
+            model: 'iPhone',
+            type: 'Mobile',
+            platform: 'iOS',
+            platform_version: '9.1',
+            browser: 'Safari',
+            browser_version: '9.0'
+        }
 
-    full parsedUA object below:
-{
-     general_vendor: 'Apple',
-     general_model: 'iPhone',
-     general_platform: 'iOS',
-     general_platform_version: '9.1',
-     general_platform_version_max: '3.1.3',
-     general_browser: 'Mobile Safari',
-     general_browser_version: '',
-     general_image: 'appleiphone-1423539120-1.jpg',
-     general_aliases: [],
-     general_eusar: '0.97',
-     general_battery: [ 'Li-Ion 1400 mAh' ],
-     general_type: 'Mobile',
-     general_cpu: [ 'ARM11', '412MHz' ],
-     design_formfactor: 'Bar',
-     design_dimensions: '115 x 61 x 11.6',
-     design_weight: '135',
-     design_antenna: 'Internal',
-     design_keyboard: 'Screen',
-     design_softkeys: '',
-     design_sidekeys: [ 'Volume' ],
-     display_type: 'TFT',
-     display_color: 'Yes',
-     display_colors: '16M',
-     display_size: '3.5"',
-     display_x: '320',
-     display_y: '480',
-     display_ppi: 162,
-     display_pixel_ratio: '1.0',
-     display_other: [ 'Capacitive', 'Touch', 'Multitouch', 'Gorilla Glass' ],
-     memory_internal: [ '4GB', '8GB', '16GB RAM' ],
-     memory_slot: [],
-     network:
-      [ 'GSM850',
-        'GSM900',
-        'GSM1800',
-        'GSM1900',
-        'Bluetooth 2.0',
-        '802.11b',
-        '802.11g',
-        'GPRS',
-        'EDGE' ],
-     media_camera: [ '2MP', '1600x1200' ],
-     media_secondcamera: [],
-     media_videocapture: [],
-     media_videoplayback: [ 'MPEG4', 'H.264' ],
-     media_audio: [ 'MP3', 'AAC', 'WAV' ],
-     media_other: [],
-     features:
-      [ 'Unlimited entries',
-        'Multiple numbers per contact',
-        'Picture ID',
-        'Ring ID',
-        'Calendar',
-        'Alarm',
-        'Document viewer',
-        'Calculator',
-        'Timer',
-        'Stopwatch',
-        'Computer sync',
-        'OTA sync',
-        'Polyphonic ringtones',
-        'Vibration',
-        'Phone profiles',
-        'Flight mode',
-        'Silent mode',
-        'Speakerphone',
-        'Accelerometer',
-        'Voice recording',
-        'Light sensor',
-        'Proximity sensor',
-        'SMS',
-        'Threaded viewer',
-        'Email',
-        'Google Maps',
-        'Audio/video player',
-        'Games' ],
-     connectors: [ 'USB', '3.5mm Audio', 'TV Out' ],
-     benchmark_min: 10,
-     benchmark_max: 50,
-     general_app: '',
-     general_app_version: '',
-     general_app_category: '',
-     general_language: '',
-     general_virtual: 0,
-     display_css_screen_sizes: [ '320x480' ]
-}*/
+        vendor is the device manufacturer
+        model is device model name
+        platform is the Operating System
+        type is the kind of device, such as Mobile, Tablet, Gaming Console, TV, SetTopBox, Bot, Watch, etc
+*/
 ```
 ### That's all folks!
 You know everything you need to know to rock and roll.
@@ -137,7 +53,11 @@ You know everything you need to know to rock and roll.
 If you want to learn about more advanced usage, continue reading on. Otherwise, pump in those UAs, and get going!
 
 # Performance
-The first time you query a userAgent, it'll take a few milliseconds to return results. After that, a cache kicks in --- so the same UA being looked up takes less than 1 ms to return full results.
+The first time you query a userAgent, it'll take about 3.20 ms to return results.
+
+After that, a cache kicks in.
+
+Cache hits take around 0.05 ms to return full parsed UA results.
 
 # Advanced usage
 This client is the free version of a premium, enterprise-grade UA parser. If you have an enterprise license, then the following sections are designed for your advanced usage. If you do not have an enterprise API key, then no need to read the sections below, stick to example above and you'll be good to go.
@@ -149,9 +69,9 @@ const config = {
     username: '007', //required to access enterprise
     secret: 'shhh', //required to access enterprise
     module: 'hosted', // required to be either hosted, cloud, or cache
-    autoUpdate: false, // optional. for hosted, auto update your database.json file
     verbose: false,   // optional. make the library console.log, for debugging
-    onlyLoad: []    // optional. only return the attributes you specify
+    autoUpdate: false, // optional. for hosted only. auto update your database.json file
+    onlyLoad: []    // optional. for cloud and cache only. returns the attributes you specify
 };
 const userAgentParser = require('handset-detect')( config );
 ```
@@ -163,7 +83,6 @@ const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWe
 const userAgentParser = require('handset-detect')({
     module: 'hosted', // required
     autoUpdate: true, // optional
-    //onlyLoad: ['general_model','general_browser','general_platform'], // optional
     username: 'username', // required
     secret: 'yourSecret' // required
 });
