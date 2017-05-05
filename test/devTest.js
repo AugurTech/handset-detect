@@ -1,10 +1,10 @@
-// const handsetDetect = require('../index.js')({
-//     verbose: true,
-//     secret: process.env.HANDSET_DETECT_SECRET,
-//     username: process.env.HANDSET_DETECT_USERNAME,
-//     module: 'hosted',
-//     autoUpdate: true
-// });
+const handsetDetect = require('../index.js')({
+    verbose: true,
+    secret: process.env.HANDSET_DETECT_SECRET,
+    username: process.env.HANDSET_DETECT_USERNAME,
+    module: 'hosted',
+    autoUpdate: true
+});
 // const userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/603.2.1 (KHTML, like Gecko) Version/10.1.1 Safari/603.2.1';
 
 // console.time('Lookup');
