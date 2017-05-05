@@ -36,9 +36,9 @@ userAgentParser( userAgent );
             model: 'iPhone',
             type: 'Mobile',
             platform: 'iOS',
-            platform_version: '9.1',
+            platformVersion: '9.1',
             browser: 'Safari',
-            browser_version: '9.0'
+            browserVersion: '9.0'
         }
 
         vendor is the device manufacturer
