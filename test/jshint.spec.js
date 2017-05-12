@@ -1,3 +1,4 @@
-/* the module mocha-jshint simple runs jshint as a mocha test, and fails if
- * there is a linting error */
-require('mocha-jshint')();
+require('mocha-jshint')({
+    title: 'Code style tests\n'.bold.cyan.underline,
+    paths: [ __dirname + '/..' ]
+});
