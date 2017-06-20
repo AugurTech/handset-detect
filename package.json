@@ -1,6 +1,6 @@
 {
   "name": "handset-detect",
-  "version": "8.0.0",
+  "version": "8.1.0",
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
   "scripts": {
@@ -37,6 +37,7 @@
     "handset-detect"
   ],
   "dependencies": {
+    "graceful-fs": "4.x",
     "json-stable-stringify": "1.x",
     "redis": "2.x",
     "unzip2": "0.2.x"
