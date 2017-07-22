@@ -4,7 +4,7 @@
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/database.js test/index.js"
+    "test": "mocha test/database.js && mocha test/index.js"
   },
   "author": "Nawar Alsafar",
   "contributors": [
