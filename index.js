@@ -12,7 +12,7 @@ module.exports = function( config = {} ) {
         headers: { 'content-type': 'application/json' },
         hostname: 'api.handsetdetection.com',
         method: config.autoUpdate === true? 'GET' : 'POST',
-        path: `/apiv4/device/${ config.autoUpdate === true? 'fetcharchive' : 'detect' }.json`
+        path: `/apiv4/${ config.free === true? 'community': 'device' }/${ config.autoUpdate === true? 'fetcharchive' : 'detect' }.json`
     };
     const md5 = ( string )=> require('crypto').createHash('md5').update( string ).digest('hex');
     const HA1 = md5(`${ config.username }:APIv4:${ config.secret }`);
@@ -29,5 +29,5 @@ module.exports = function( config = {} ) {
         );
     }
 
-    return require(`${ __dirname }/lib/${ config.module || 'hosted' }.js`)( requestOptions, config.onlyLoad );
+    return require(`${ __dirname }/lib/${ config.module || 'hosted' }.js`)( requestOptions, config.onlyLoad, config.free );
 };

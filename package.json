@@ -4,7 +4,7 @@
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test/database.js test/index.js"
   },
   "author": "Nawar Alsafar",
   "contributors": [
@@ -23,6 +23,9 @@
     {
       "name": "Stephen Thoma",
       "email": "stephenthoma@users.noreply.github.com"
+    },
+    {
+      "name": "thdls55"
     }
   ],
   "license": "ISC",

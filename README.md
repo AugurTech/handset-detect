@@ -1,5 +1,4 @@
-[![npm version](https://badge.fury.io/js/handset-detect.svg)](https://badge.fury.io/js/handset-detect)
-[![Build Status](https://travis-ci.org/AugurTech/handset-detect.svg?branch=master)](https://travis-ci.org/AugurTech/handset-detect)
+[![Build Status](https://travis-ci.org/HandsetDetection/nodejs-apikit.svg?branch=master)](https://travis-ci.org/HandsetDetection/nodejs-apikit)
 [![Dependency Status][david-image]][david-url]
 [![devDependency Status][david-dev-image]][david-dev-url]
 
@@ -121,7 +120,7 @@ const userAgentParser = require('handset-detect')({
 console.log( userAgentParser( userAgent ) ); // => null
 console.log( userAgentParser( userAgent ) ); // => actual data
 ```
-[david-image]: https://david-dm.org/augurtech/handset-detect.svg
-[david-url]: https://david-dm.org/augurtech/handset-detect
-[david-dev-image]: https://david-dm.org/augurtech/handset-detect/dev-status.svg
-[david-dev-url]: https://david-dm.org/augurtech/handset-detect#info=devDependencies
+[david-image]: https://david-dm.org/HandsetDetection/nodejs-apikit.svg
+[david-url]: https://david-dm.org/HandsetDetection/nodejs-apikit
+[david-dev-image]: https://david-dm.org/HandsetDetection/nodejs-apikit/dev-status.svg
+[david-dev-url]: https://david-dm.org/HandsetDetection/nodejs-apikit#info=devDependencies
