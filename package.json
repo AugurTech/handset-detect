@@ -52,6 +52,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AugurTech/handset-detect"
+    "url": "https://github.com/HandsetDetection/nodejs-apikit"
   }
 }
