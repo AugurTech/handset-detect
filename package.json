@@ -1,6 +1,6 @@
 {
-  "name": "handset-detect",
-  "version": "8.1.0",
+  "name": "@handsetdetection/apikit",
+  "version": "4.2.0",
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "useragent parser",
     "parser",
     "handsetdetect",
-    "handset-detect"
+    "handset detection"
   ],
   "dependencies": {
     "graceful-fs": "4.x",
