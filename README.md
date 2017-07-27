@@ -1,5 +1,5 @@
-[![npm version](https://badge.fury.io/js/handset-detect.svg)](https://badge.fury.io/js/handset-detect)
-[![Build Status](https://travis-ci.org/AugurTech/handset-detect.svg?branch=master)](https://travis-ci.org/AugurTech/handset-detect)
+[![npm version](https://badge.fury.io/js/%40handsetdetection%2Fapikit.svg)](https://badge.fury.io/js/%40handsetdetection%2Fapikit)
+[![Build Status](https://travis-ci.org/HandsetDetection/nodejs-apikit.svg?branch=master)](https://travis-ci.org/HandsetDetection/nodejs-apikit)
 [![Dependency Status][david-image]][david-url]
 [![devDependency Status][david-dev-image]][david-dev-url]
 
@@ -25,7 +25,7 @@ See the full list of devices you can detect at https://www.handsetdetection.com/
 ## How to use; TLDR
 ```javascript
 // load the library
-const userAgentParser = require('handset-detect')({ free: true });
+const userAgentParser = require('@handsetdetection/apikit')({ free: true });
 // have a userAgent? pump it into the library
 const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 // like this
@@ -73,14 +73,14 @@ const config = {
     autoUpdate: false,  // optional. for hosted only. auto update your database.json file
     onlyLoad: []        // optional. for cloud and cache only. returns the attributes you specify
 };
-const userAgentParser = require('handset-detect')( config );
+const userAgentParser = require('@handsetdetection/apikit')( config );
 ```
 
 ### module `hosted`
 ```javascript
 const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
-const userAgentParser = require('handset-detect')({
+const userAgentParser = require('@handsetdetection/apikit')({
     module: 'hosted', // required
     autoUpdate: true, // optional
     username: 'username', // required
@@ -98,7 +98,7 @@ If enabled, a new event loop is created on the master thread / master event loop
 ```javascript
 const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1';
 
-const userAgentParser = require('handset-detect')({
+const userAgentParser = require('@handsetdetection/apikit')({
     module: 'cloud',
     username: 'userName',
     secret: 'yourSecret'
@@ -112,7 +112,7 @@ userAgentParser( userAgent, function( error, parsedUA ) {
 ### module `caching`
 Synchronous caching ability built on the `cloud` module. On cache miss returns null, and then does a `cloud` lookup in the background. Future requests for the same UA will be cached in Redis and in-memory. Redis cache is pulled into memory on process start. Redis cache TTL is set to 20 days.
 ```javascript
-const userAgentParser = require('handset-detect')({
+const userAgentParser = require('@handsetdetection/apikit')({
     module: 'cache',
     username: 'userName',
     secret: 'yourSecret'
@@ -121,7 +121,7 @@ const userAgentParser = require('handset-detect')({
 console.log( userAgentParser( userAgent ) ); // => null
 console.log( userAgentParser( userAgent ) ); // => actual data
 ```
-[david-image]: https://david-dm.org/augurtech/handset-detect.svg
-[david-url]: https://david-dm.org/augurtech/handset-detect
-[david-dev-image]: https://david-dm.org/augurtech/handset-detect/dev-status.svg
-[david-dev-url]: https://david-dm.org/augurtech/handset-detect#info=devDependencies
+[david-image]: https://david-dm.org/HandsetDetection/nodejs-apikit.svg
+[david-url]: https://david-dm.org/HandsetDetection/nodejs-apikit
+[david-dev-image]: https://david-dm.org/HandsetDetection/nodejs-apikit/dev-status.svg
+[david-dev-url]: https://david-dm.org/HandsetDetection/nodejs-apikit#info=devDependencies

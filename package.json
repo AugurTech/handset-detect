@@ -1,10 +1,10 @@
 {
-  "name": "handset-detect",
-  "version": "8.1.0",
+  "name": "@handsetdetection/apikit",
+  "version": "4.2.0",
   "description": "browser user agent parser based on the handsetdetection database",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test/database.js && mocha test/index.js"
   },
   "author": "Nawar Alsafar",
   "contributors": [
@@ -23,6 +23,9 @@
     {
       "name": "Stephen Thoma",
       "email": "stephenthoma@users.noreply.github.com"
+    },
+    {
+      "name": "thdls55"
     }
   ],
   "license": "ISC",
@@ -34,7 +37,7 @@
     "useragent parser",
     "parser",
     "handsetdetect",
-    "handset-detect"
+    "handset detection"
   ],
   "dependencies": {
     "graceful-fs": "4.x",
@@ -49,6 +52,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AugurTech/handset-detect"
+    "url": "https://github.com/HandsetDetection/nodejs-apikit"
   }
 }

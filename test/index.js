@@ -4,6 +4,10 @@ require('colors');
 const Assert = require('assert');
 const HandsetDetect = require('../index.js');
 const Redis = require('redis').createClient();
+const hd4ultimateTest = require('./hd4ultimateTest');
+const hd4communityTest = require('./hd4communityTest');
+const HANDSET_DETECT_SECRET = process.env.HANDSET_DETECT_SECRET || process.env.API_SECRET;
+const HANDSET_DETECT_USERNAME = process.env.HANDSET_DETECT_USERNAME || process.env.API_USERNAME;
 
 describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
     this.retries(3);
@@ -58,8 +62,8 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
                 'general_model',
                 'general_vendor'
             ],
-            username: process.env.HANDSET_DETECT_USERNAME,
-            secret: process.env.HANDSET_DETECT_SECRET
+            username: HANDSET_DETECT_USERNAME,
+            secret: HANDSET_DETECT_SECRET
         });
 
         describe('Cloud Function'.bold.blue, function() {
@@ -105,8 +109,8 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
         before(function( done ) {
             handsetDetect = HandsetDetect({
                 module: 'cache',
-                username: process.env.HANDSET_DETECT_USERNAME,
-                secret: process.env.HANDSET_DETECT_SECRET
+                username: HANDSET_DETECT_USERNAME,
+                secret: HANDSET_DETECT_SECRET
             });
             setTimeout( done, 1e3 );
         });
@@ -189,12 +193,15 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
                 testSafari( handsetDetect );
                 testIE( handsetDetect );
             });
+            describe('hd4communityTest suite'.bold.blue, function() {
+                hd4communityTest(handsetDetect);
+            });
         });
         describe('UltimateDB Paid Hosted Parsing'.bold.blue, function() {
             const handsetDetect = HandsetDetect({
                 verbose: true,
-                secret: process.env.HANDSET_DETECT_SECRET,
-                username: process.env.HANDSET_DETECT_USERNAME,
+                secret: HANDSET_DETECT_SECRET,
+                username: HANDSET_DETECT_USERNAME,
                 module: 'hosted',
                 autoUpdate: true,
                 onlyLoad: [
@@ -220,6 +227,9 @@ describe('Handset Detect integration tests\n'.underline.cyan.bold, function() {
             describe('Major browser detection'.bold.blue, function() {
                 testSafari( handsetDetect );
                 testIE( handsetDetect );
+            });
+            describe('hd4ultimateTest suite'.bold.blue, function() {
+                hd4ultimateTest(handsetDetect);
             });
         });
     });
