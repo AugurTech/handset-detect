@@ -1,7 +1,3 @@
-write tests for lib/managedb.js
 write performance tests
-write more user agent example tests
 write tests for functionality of only_load
-write tests that test premium download and extraction
-have option to update free database
 write thorough more code comments
