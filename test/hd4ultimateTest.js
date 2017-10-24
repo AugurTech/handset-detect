@@ -143,8 +143,8 @@ module.exports = function (handsetDetect) {
     assertEqual(res.hd_specs.general_language_full, 'Danish');
     assertEqual(res.hd_specs.general_app, 'Facebook');
     assertEqual(res.hd_specs.general_app_version, '9.0');
-    assertEqual(res.hd_specs.general_browser, '');
-    assertEqual(res.hd_specs.general_browser_version, '');
+    assertEqual(res.hd_specs.general_browser, 'Safari Webview');
+    assertEqual(res.hd_specs.general_browser_version, '537.51');
     assert(res.hd_specs.hasOwnProperty('display_pixel_ratio'));
     assert(res.hd_specs.hasOwnProperty('display_ppi'));
     assert(res.hd_specs.hasOwnProperty('benchmark_min'));
